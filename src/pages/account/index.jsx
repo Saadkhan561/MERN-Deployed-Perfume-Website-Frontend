@@ -44,7 +44,7 @@ const Account = () => {
         <div className=" w-full flex flex-col gap-10 h-full">
           <div className="w-full h-[250px] relative">
             <Image
-              src="/images/route_bg.jfif"
+              src="/images/route_bg.jpg"
               alt="route_bg"
               layout="fill"
               objectFit="cover"

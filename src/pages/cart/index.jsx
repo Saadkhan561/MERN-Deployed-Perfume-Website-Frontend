@@ -39,7 +39,7 @@ const Cart = () => {
       <div className="flex flex-col items-center w-full">
         <div className="w-full h-[250px] relative">
           <Image
-            src="/images/route_bg.jfif"
+            src="/images/route_bg.jpg"
             alt="route_bg"
             layout="fill"
             objectFit="cover"

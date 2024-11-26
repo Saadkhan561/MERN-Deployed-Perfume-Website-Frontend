@@ -79,7 +79,7 @@ export default function Home() {
                   Select from our trending items!
                 </p>
               </div>
-              <div className="flex flex-wrap mob_display:justify-center mob_display_product:flex-col mob_display_product:items-center gap-4 mt-6">
+              <div className="flex flex-wrap mob_display:justify-center mob_display_product:flex-col mob_display_product:items-center gap-6 mt-6">
                 {trendingProductsLoading ? (
                   <div className="flex flex-wrap mob_display:justify-center mob_display_product:flex-col mob_display_product:items-center gap-4 mt-6">
                     <ProductCardSkeleton />

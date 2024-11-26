@@ -1,4 +1,4 @@
-  import { useRouter } from "next/router";
+import { useRouter } from "next/router";
 import { React, useState, useEffect } from "react";
 import { usePlaceOrder, useSignupMutation } from "@/hooks/mutation";
 import useCartStore from "@/store/cart";
@@ -9,18 +9,25 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import CartItemDetails from "@/components/cartComponents/cartItemDetails";
 import Layout from "@/layout/layout";
-import { House, Mail, MapPinHouse, Phone, User } from "lucide-react";
-import { deliverySchema, guestDeliverySchema } from "@/schema/orderSchema";
+import {
+  ArrowLeft,
+  ChevronLeft,
+  House,
+  Mail,
+  MapPinHouse,
+  Phone,
+  User,
+} from "lucide-react";
+import { deliverySchema } from "@/schema/orderSchema";
 import { MoonLoader } from "react-spinners";
 import Meta from "@/components/metaTags/meta";
+import Link from "next/link";
 
 const Checkout = () => {
   const router = useRouter();
   const { cart, clearCart } = useCartStore();
   const { currentUser } = useUserStore();
   const [totalAmount, setTotalAmount] = useState(0);
-
-  console.log(cart);
 
   useEffect(() => {
     const amount = Object.values(cart).reduce((total, item) => {
@@ -137,10 +144,16 @@ const Checkout = () => {
         keywords="perfume checkout, purchase, perfume shop"
       />
       <div className="flex justify-center items-center w-full h-full">
+        {" "}
         <form
           onSubmit={handleSubmit(onSubmit)}
           className=" rounded-lg p-8 h-full sm:w-11/12 w-full"
         >
+          <Link href="/cart" className="flex gap-2 items-center font-semibold">
+            <ArrowLeft size={15} />
+            Back to cart
+          </Link>
+
           <div className="grid sm:grid-cols-2 grid-rows-2 gap-8 p-4">
             <div>
               <div className="text-3xl text-center mb-6 font-semibold">
@@ -302,7 +315,7 @@ const Checkout = () => {
                   {totalAmount} Rs
                 </div>
               </div>
-              <div className="flex gap-2 items-center w-full">
+              <div className="flex gap-2 sm:flex-row flex-col items-center w-full">
                 <button
                   type="submit"
                   disabled={
@@ -322,13 +335,13 @@ const Checkout = () => {
                     "Place Order"
                   )}
                 </button>
-                <div
+                <button
                   onClick={() => router.push("/cart")}
                   type="button"
                   className=" bg-red-500 text-white text-base w-full font-semibold  hover:bg-red-600 hover:cursor-pointer duration-200 flex justify-center mob_display:text-sm p-1"
                 >
                   Cancel
-                </div>
+                </button>
               </div>
             </div>
           </div>

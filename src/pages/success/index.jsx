@@ -21,9 +21,9 @@ const Success = () => {
         description="Thank you for your order! Your perfume will be delivered soon."
         keywords="order success, thank you, perfume purchase"
       />
-      <div className="flex flex-col gap-2 items-center rounded-lg border-2 h-max p-8 shadow-2xl">
+      <div className="flex flex-col gap-2 items-center rounded-lg border-2 sm:w-4/5 lg:w-3/5 w-11/12 h-max p-8 shadow-2xl">
         <Image src="/images/success.png" alt="" height={80} width={80} />
-        <div className="flex flex-col items-center gap-1">
+        <div className="flex flex-col items-center text-center gap-1">
           <p className="text-3xl font-semibold">
             Thank you for placing your order!
           </p>

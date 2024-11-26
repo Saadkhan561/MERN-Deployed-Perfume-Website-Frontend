@@ -7,12 +7,17 @@ import SideBar from "@/components/common/side-bar";
 import Link from "next/link";
 import { Bounce, ToastContainer } from "react-toastify";
 import { useFetchAllCategories } from "@/hooks/query";
+import { ShoppingCart } from "lucide-react";
+import useCartStore from "@/store/cart";
 
 const Layout = ({ children }) => {
   const router = useRouter();
 
-  const {data: categories, isLoading: isCategoriesLoading} = useFetchAllCategories()
+  const { data: categories } = useFetchAllCategories();
 
+  const pathName = router.asPath.split("/");
+
+  const { cart } = useCartStore();
   return (
     <div className="w-full h-sreen relative overflow-x-hidden font-sans">
       <ToastContainer
@@ -21,6 +26,21 @@ const Layout = ({ children }) => {
         autoClose={1000}
         hideProgressBar={true}
       />
+      {pathName.includes("checkout") ? null : (
+        <button
+          onClick={() => router.push("/cart")}
+          className="fixed bottom-14 right-14 z-20  mob_display:block hidden"
+        >
+          <ShoppingCart
+            size={40}
+            color="black"
+            className="p-1 bg-white rounded-lg border-2"
+          />
+          <p className="absolute -top-4 -right-2 bg-black text-white p-1 text-sm rounded-lg">
+            {Object.keys(cart).length}
+          </p>
+        </button>
+      )}
       <div
         className={
           Boolean(router.query.sideBar) || Boolean(router.query.payment)
@@ -47,23 +67,18 @@ const Layout = ({ children }) => {
                 Categories
               </Link>
               {categories?.map((category) => (
-                <Link key={category._id} href={`/products?id=${category._id}`} className="hover:border-b border-slate-500 duration-100">
+                <Link
+                  key={category._id}
+                  href={`/products?id=${category._id}`}
+                  className="hover:border-b border-slate-500 duration-100"
+                >
                   {category.name}
                 </Link>
               ))}
             </ul>
           </div>
         </div>
-        <div
-          // className={
-          //   router.query.payment
-          //     ? "opacity-50 duration-200 flex justify-center mt-28"
-          //     : "flex justify-center mt-24"
-          // }
-          className="flex justify-center mt-24"
-        >
-          {children}
-        </div>
+        <div className="flex justify-center mt-24">{children}</div>
         <Footer />
       </div>
 

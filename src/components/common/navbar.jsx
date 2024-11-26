@@ -1,36 +1,17 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
-import { useFetchAllCategories } from "@/hooks/query";
+import React, { useState } from "react";
 import useCartStore from "@/store/cart";
 import useUserStore from "@/store/user";
-import { LogOut, Menu, Settings, ShoppingCart, User, UserRound } from "lucide-react";
+import { LogOut, Menu, ShoppingCart, User, UserRound } from "lucide-react";
 import SearchDiv from "../search";
-// import { Link } from "next/link";
 const Navbar = () => {
   const [accountDiv, setAccountDiv] = useState(false);
   const router = useRouter();
-  // const [pathName, setPathName] = useState();
 
   const { currentUser, deleteUserInfo } = useUserStore();
-  // const path
-  // useEffect(() => {
-  //   setPathName(router.pathname);
-  // }, [router.pathname]);
-
-  const { data: categories, isLoading: isCategoryLoading } =
-    useFetchAllCategories();
 
   const sideBar = (name) => {
-    if (router.query[name]) {
-      delete router.query[name];
-    } else {
-      router.query[name] = true;
-    }
-    router.push(router, undefined, { shallow: true });
-  };
-
-  const products = (name) => {
     if (router.query[name]) {
       delete router.query[name];
     } else {

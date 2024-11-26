@@ -76,19 +76,16 @@ const SideBar = () => {
               </div>
             )}
           </li>
+          <li onClick={() => router.push("/account")} className="p-2 cursor-pointer hover:underline">
+            My Account
+          </li>
           <hr />
           <li
             onClick={() => router.push("/")}
-            className="p-2 cursor-pointer hover:underline"
+            className="p-2 mt-4 cursor-pointer hover:underline"
           >
             Home
           </li>
-          {/* <li
-            onClick={() => router.push("/products")}
-            className="p-2 cursor-pointer hover:underline"
-          >
-            Products
-          </li> */}
           <Accordion
             type="single"
             collapsible
@@ -99,7 +96,7 @@ const SideBar = () => {
               <AccordionContent>
                 <ul>
                   {categories?.map((category, index) => (
-                    <li key={category._id} className="pt-2 uppercase">
+                    <li key={category._id} className="pt-2 capitalize">
                       <Link href={`/products?id=${category._id}`} key={index}>
                         {category.name}
                       </Link>

@@ -154,7 +154,7 @@ const Checkout = () => {
             Back to cart
           </Link>
 
-          <div className="grid sm:grid-cols-2 grid-rows-2 gap-8 p-4">
+          <div className="grid sm:grid-cols-2 grid-rows-2 sm:gap-8 gap-20 sm:mt-6 mt-8">
             <div>
               <div className="text-3xl text-center mb-6 font-semibold">
                 Delivery Details
@@ -304,7 +304,7 @@ const Checkout = () => {
                 </div>
               </div>
             </div>
-            <div className="flex flex-col justify-between">
+            <div className="flex flex-col gap-8 sm:justify-between">
               <div className="flex flex-col gap-2">
                 <p className="text-2xl font-semibold">Item details</p>
                 {Object.entries(cart).map(([key, value]) => (

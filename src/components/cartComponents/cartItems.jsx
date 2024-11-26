@@ -14,8 +14,7 @@ const CartItem = ({ itemKey, itemValue }) => {
   const { incrementQuantity, decrementQuantity, deleteItem } = useCartStore();
 
   return (
-    <Link
-      href={`/products/${itemKey}`}
+    <div
       key={itemKey}
       className=" flex flex-col w-full border border-slate-300 rounded-lg p-2 hover:border-slate-400 hover:shadow-sm transition duration-200"
     >
@@ -31,7 +30,12 @@ const CartItem = ({ itemKey, itemValue }) => {
             />
           </div>
           <div className="flex flex-col gap-2">
-            <div className=" text-lg font-semibold ">{itemValue.name}</div>
+            <Link
+              href={`/products/${itemKey}`}
+              className=" text-lg font-semibold hover:underline"
+            >
+              {itemValue.name}
+            </Link>
             <div className="flex flex-col gap-2 text-gray-600 text-sm">
               <div className="flex flex-col gap-1">
                 {Object.entries(itemValue.options).map(
@@ -70,7 +74,7 @@ const CartItem = ({ itemKey, itemValue }) => {
           size={20}
         />
       </div>
-    </Link>
+    </div>
   );
 };
 

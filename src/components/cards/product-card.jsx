@@ -11,8 +11,6 @@ const Card = ({ product, category }) => {
 
   const router = useRouter();
 
-  console.log("product", category)
-
   return (
     <>
       {/* CARD DIV */}

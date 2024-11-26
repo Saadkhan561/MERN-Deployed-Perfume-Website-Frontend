@@ -49,6 +49,7 @@ const useCartStore = create(
                 [newItem.amount]: {
                   quantity: newItem.quantity,
                   price: newItem.options[amount].price,
+                  quantityAvailable: newItem.options[amount].quantityAvailable
                 },
               },
               totalQuantity: newItem.quantity,
@@ -66,7 +67,7 @@ const useCartStore = create(
       incrementQuantity: (amount, id) =>
         set((state) => {
           const updatedCart = { ...state.cart };
-          if (updatedCart[id]) {
+          if (updatedCart[id] && updatedCart[id].options[amount].quantity!==updatedCart[id].options[amount].quantityAvailable) {
             updatedCart[id].options[amount].quantity += 1;
             updatedCart[id].totalPrice += updatedCart[id].options[amount].price;
           }

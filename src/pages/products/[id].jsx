@@ -26,6 +26,7 @@ const ProductDetails = () => {
   const [counter, setCounter] = useState(1);
   const [amount, setAmount] = useState(50);
   const [skip, setSkip] = useState(0);
+  const [incMsg, setIncMsg] = useState(null)
   const router = useRouter();
 
   const id = router.query.id;
@@ -41,18 +42,23 @@ const ProductDetails = () => {
         }
       : null
   );
-
-  console.log(products);
-
   const { data: productImages } = useFetchProductImages({
     category: product?.categoryDetails.name,
     productName: product?.name,
   });
 
+  const { addItem, cart } = useCartStore();
+
+  console.log(cart[id])
   const incrementCounter = () => {
     if (product?.options[amount].quantityAvailable === counter) {
       return counter;
-    } else {
+    } 
+    else if(cart[id].options[amount].quantity === product?.options[amount].quantityAvailable) {
+      setIncMsg("You have already added all available items in your cart")
+    }
+    else {
+      setIncMsg(null)
       setCounter(counter + 1);
     }
   };
@@ -80,8 +86,6 @@ const ProductDetails = () => {
     values: initialValues,
     resolver: yupResolver(productSchema),
   });
-
-  const { addItem, cart } = useCartStore();
   const onSubmit = (data) => {
     addItem(
       {
@@ -187,7 +191,10 @@ const ProductDetails = () => {
                     </p>
                     <p className="text-sm">{product.description}</p>
                   </div>
-                  <form onSubmit={handleSubmit(onSubmit)}>
+                  <form
+                    className="flex flex-col gap-4"
+                    onSubmit={handleSubmit(onSubmit)}
+                  >
                     <div className="flex flex-col gap-2">
                       <p className="mob_display:text-sm">Amout available</p>
                       <div className="flex gap-2 mob_display:text-sm">
@@ -217,30 +224,54 @@ const ProductDetails = () => {
                         </p>
                       )}
                     </div>
-                    <div className="mt-4">
-                      <div className="text-gray-500 font-semibold mb-2">
-                        Quantity
+                    {product.options[amount].quantityAvailable === 0 ? (
+                      <p className="text-red-500">Out of stock</p>
+                    ) : (
+                      <div>
+                        <div className="text-gray-500 font-semibold mb-2">
+                          Quantity
+                        </div>
+                        <div className="w-fit flex gap-4 p-1 pl-2 pr-2 border border-slate-300 items-center">
+                          <button type="button">
+                            <Minus
+                              onClick={decrementCounter}
+                              size={30}
+                              color="black"
+                              className="p-1 cursor-pointer"
+                            />
+                          </button>
+                          <div className="text-lg">{counter}</div>
+                          <button type="button">
+                            {" "}
+                            <Plus
+                              onClick={incrementCounter}
+                              size={30}
+                              color="black"
+                              className="p-1 cursor-pointer"
+                            />
+                          </button>
+                        </div>
+                        {incMsg && (
+                          <p className="text-red-500 text-sm">{incMsg}</p>
+                        )}
+                        <div className="text-xs text-gray-500 font-semibold mt-2">
+                          <p>
+                            {" "}
+                            Available :
+                            {product.options[amount].quantityAvailable}
+                          </p>
+                        </div>
                       </div>
-                      <div className="w-fit flex gap-4 p-1 pl-2 pr-2 border border-slate-300 items-center">
-                        <Minus
-                          onClick={decrementCounter}
-                          size={30}
-                          color="black"
-                          className="p-1 cursor-pointer"
-                        />
-                        <div className="text-lg">{counter}</div>
-                        <Plus
-                          onClick={incrementCounter}
-                          size={30}
-                          color="black"
-                          className="p-1 cursor-pointer"
-                        />
-                      </div>
-                      <div className="text-xs text-gray-500 font-semibold mt-2">
-                        Available : {product.options[amount].quantityAvailable}
-                      </div>
-                    </div>
-                    <button className="mt-4 bg-black text-white w-11/12 text-lg font-semibold  hover:bg-gray-700 hover:cursor-pointer duration-200 flex justify-center mob_display:text-sm p-2">
+                    )}
+                    <button
+                    type="submit"
+                      className={`bg-black text-white w-11/12 text-lg font-semibold   duration-200 flex justify-center mob_display:text-sm p-2 ${
+                        product.options[amount].quantityAvailable === 0
+                          ? "opacity-50"
+                          : "hover:bg-gray-700 hover:cursor-pointer"
+                      }`}
+                      disabled={product.options[amount].quantityAvailable === 0}
+                    >
                       Add to cart
                     </button>
                   </form>

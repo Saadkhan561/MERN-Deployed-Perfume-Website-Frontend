@@ -48,7 +48,6 @@ const ProductDetails = () => {
   });
 
   const { addItem, cart } = useCartStore();
-  console.log(cart);
 
   const incrementCounter = () => {
     if (!getValues().amount) {

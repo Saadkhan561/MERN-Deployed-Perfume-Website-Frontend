@@ -13,13 +13,19 @@ const Card = ({ product, category }) => {
   const [stockMsg, setStockMsg] = useState(null);
 
   useEffect(() => {
-    Object.entries(product.options).map(([options, value]) => {
-      if (value.quantityAvailable === 0) {
-        setStockMsg("Out of stock");
-      } else {
-        setStockMsg((prev) => (prev ? null : "Out of stock"));
+    let isOutOfStock = true;
+
+    Object.entries(product.options).forEach(([option, value]) => {
+      if (value.quantityAvailable > 0) {
+        isOutOfStock = false;
       }
     });
+
+    if (isOutOfStock) {
+      setStockMsg("Out of stock");
+    } else {
+      setStockMsg(null);
+    }
   }, [product]);
 
   return (
@@ -65,6 +71,16 @@ const Card = ({ product, category }) => {
               </div>
             ))}
           <p className="text-red-500 text-sm font-semibold">{stockMsg}</p>
+          {Object.entries(product.options).map(([option, value]) =>
+            value.discount !== 0 ? (
+              <p
+                key={option}
+                className="absolute top-5 right-2 p-1 text-sm text-white bg-red-600 rounded-lg"
+              >
+                Sale
+              </p>
+            ) : null
+          )}
         </div>
       </div>
     </>

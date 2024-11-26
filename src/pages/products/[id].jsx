@@ -26,7 +26,7 @@ const ProductDetails = () => {
   const [counter, setCounter] = useState(1);
   const [amount, setAmount] = useState(50);
   const [skip, setSkip] = useState(0);
-  const [incMsg, setIncMsg] = useState(null)
+  const [incMsg, setIncMsg] = useState(null);
   const router = useRouter();
 
   const id = router.query.id;
@@ -48,17 +48,31 @@ const ProductDetails = () => {
   });
 
   const { addItem, cart } = useCartStore();
+  console.log(cart);
 
-  console.log(cart[id])
   const incrementCounter = () => {
+    if (!getValues().amount) {
+      setError("amount", { message: "Amount is required" });
+      return;
+    }
+
     if (product?.options[amount].quantityAvailable === counter) {
       return counter;
-    } 
-    else if(cart[id].options[amount].quantity === product?.options[amount].quantityAvailable) {
-      setIncMsg("You have already added all available items in your cart")
-    }
-    else {
-      setIncMsg(null)
+    } else if (
+      (Object.keys(cart).length &&
+        cart[id].options[amount] &&
+        cart[id]?.options[amount].quantity ===
+          product?.options[amount].quantityAvailable) ||
+      (Object.keys(cart).length &&
+        cart[id].options[amount] &&
+        counter ===
+          cart[id]?.options[amount].quantityAvailable -
+            cart[id]?.options[amount].quantity)
+    ) {
+      setIncMsg("You have already added all available items in your cart");
+    } else {
+      setError("amount", { message: "" });
+      setIncMsg(null);
       setCounter(counter + 1);
     }
   };
@@ -82,19 +96,30 @@ const ProductDetails = () => {
     register,
     formState: { errors },
     handleSubmit,
+    getValues,
+    setError,
   } = useForm({
     values: initialValues,
     resolver: yupResolver(productSchema),
   });
   const onSubmit = (data) => {
-    addItem(
-      {
-        ...product,
-        quantity: counter,
-        amount: parseInt(data.amount),
-      },
-      product._id
-    );
+    const val = cart[id]?.options[amount];
+    if (
+      counter > val?.quantityAvailable - val?.quantity ||
+      counter === val?.quantityAvailable
+    ) {
+      setIncMsg("You have exceeded the stock limit");
+    } else {
+      addItem(
+        {
+          ...product,
+          quantity: counter,
+          amount: parseInt(data.amount),
+        },
+        product._id
+      );
+      setIncMsg(null);
+    }
   };
 
   // FOR SLIDER
@@ -206,7 +231,10 @@ const ProductDetails = () => {
                               name="amount"
                               className="hidden peer"
                               value={key}
-                              onClick={(e) => setAmount(e.target.value)}
+                              onClick={(e) => {
+                                setAmount(e.target.value);
+                                setCounter(1);
+                              }}
                               {...register("amount")}
                             />
                             <label
@@ -264,7 +292,7 @@ const ProductDetails = () => {
                       </div>
                     )}
                     <button
-                    type="submit"
+                      type="submit"
                       className={`bg-black text-white w-11/12 text-lg font-semibold   duration-200 flex justify-center mob_display:text-sm p-2 ${
                         product.options[amount].quantityAvailable === 0
                           ? "opacity-50"

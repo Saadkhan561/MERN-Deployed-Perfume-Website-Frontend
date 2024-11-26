@@ -11,7 +11,6 @@ const ProtectedWrapper = (WrappedComponent) => {
     useEffect(() => {
       
       if (!currentUser) {
-        // Redirect unauthenticated users
         if (router.pathname === "/admin") {
           router.push("/adminLogin");
         } else {
@@ -20,7 +19,7 @@ const ProtectedWrapper = (WrappedComponent) => {
         return;
       }
       
-      if (isLoading) return;
+      if (isLoading) ;
       const { role } = currentUser.user;
 
       if (router.pathname.startsWith("/admin") && role !== "admin") {

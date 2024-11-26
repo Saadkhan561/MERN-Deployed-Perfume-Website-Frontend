@@ -27,6 +27,7 @@ const useCartStore = create(
                   [newItem.amount]: {
                     quantity: newItem.quantity,
                     price: newItem.options[amount].price,
+                    quantityAvailable: newItem.options[amount].quantityAvailable
                   },
                 },
               };

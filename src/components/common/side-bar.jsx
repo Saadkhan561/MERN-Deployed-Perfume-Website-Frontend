@@ -76,9 +76,14 @@ const SideBar = () => {
               </div>
             )}
           </li>
-          <li onClick={() => router.push("/account")} className="p-2 cursor-pointer hover:underline">
-            My Account
-          </li>
+          {currentUser?.user && (
+            <li
+              onClick={() => router.push("/account")}
+              className="p-2 cursor-pointer hover:underline"
+            >
+              My Account
+            </li>
+          )}
           <hr />
           <li
             onClick={() => router.push("/")}

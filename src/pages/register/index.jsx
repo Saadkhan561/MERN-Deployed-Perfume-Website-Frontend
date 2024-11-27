@@ -3,7 +3,7 @@ import Login from "@/components/register/login";
 import SignUp from "@/components/register/sigup";
 import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
-import Image from 'next/image'
+import Image from "next/image";
 import { Bounce, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -62,28 +62,44 @@ const Register = () => {
           }
         >
           {!isLogin ? (
-            <div
-              onClick={toggleLogin}
-              className="flex gap-2 flex-wrap cursor-pointer"
-            >
-              <div>Already have an account? Login</div>
+            <div className="flex flex-col gap-2 items-center">
               <Image
-                src="/images/white-right-arrow.png"
-                alt="arrow"
-                height={30}
-                width={30}
+                src="/images/perfume-logo.svg"
+                alt="Perfume logo"
+                height={200}
+                width={200}
               />
+              <div
+                onClick={toggleLogin}
+                className="flex gap-2 flex-wrap cursor-pointer"
+              >
+                <div>Already have an account? Login</div>
+                <Image
+                  src="/images/white-right-arrow.png"
+                  alt="arrow"
+                  height={30}
+                  width={30}
+                />
+              </div>
             </div>
           ) : (
-            <div onClick={toggleLogin} className="flex gap-2 cursor-pointer">
+            <div className="flex flex-col gap-2 items-center">
               <Image
-                className="rotate-180"
-                src="/images/white-right-arrow.png"
-                alt="arrow"
-                height={30}
-                width={30}
+                src="/images/perfume-logo.svg"
+                alt="Perfume logo"
+                height={200}
+                width={200}
               />
-              <div>Don&#39;t have an account? Sign Up</div>
+              <div onClick={toggleLogin} className="flex gap-2 cursor-pointer">
+                <Image
+                  className="rotate-180"
+                  src="/images/white-right-arrow.png"
+                  alt="arrow"
+                  height={30}
+                  width={30}
+                />
+                <div>Don&#39;t have an account? Sign Up</div>
+              </div>
             </div>
           )}
         </div>

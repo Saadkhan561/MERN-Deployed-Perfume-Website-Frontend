@@ -5,6 +5,7 @@ import useCartStore from "@/store/cart";
 import useUserStore from "@/store/user";
 import { LogOut, Menu, ShoppingCart, User, UserRound } from "lucide-react";
 import SearchDiv from "../search";
+import Image from "next/image";
 const Navbar = () => {
   const [accountDiv, setAccountDiv] = useState(false);
   const router = useRouter();
@@ -33,7 +34,15 @@ const Navbar = () => {
         <div>
           <SearchDiv />
         </div>
-        <div className="text-3xl font-didot">Perfume Shop</div>
+        <div className="text-3xl font-didot">
+          <Image
+            src="/images/perfume-logo.svg"
+            alt="Perfume logo"
+            height={200}
+            width={200}
+          />
+        </div>
+
         <div>
           <ul className="flex items-center gap-6 p-1 text-lg">
             <li>
@@ -56,13 +65,16 @@ const Navbar = () => {
                   }
                 >
                   <li className="p-1 text-lg font-semibold border-b border-b-slate-200">
-                    {currentUser.user.first_name + " " + currentUser.user.last_name}
+                    {currentUser.user.first_name +
+                      " " +
+                      currentUser.user.last_name}
                   </li>
                   <li
                     onClick={() => router.push("/account")}
                     className="cursor-pointer text-black flex gap-2 items-center hover:bg-slate-100 duration-200 p-1 rounded-lg border-b border-b-slate-200"
                   >
-                    <User size={15} />My Account
+                    <User size={15} />
+                    My Account
                   </li>
                   {/* <li
                     onClick={() => router.push("/settings")}
@@ -74,7 +86,8 @@ const Navbar = () => {
                     onClick={logout}
                     className="cursor-pointer text-red-500 flex items-center gap-2 hover:bg-slate-100  duration-200 p-1 rounded-lg"
                   >
-                    <LogOut  size={15}/>Logout
+                    <LogOut size={15} />
+                    Logout
                   </li>
                 </ul>
                 <div
@@ -85,13 +98,24 @@ const Navbar = () => {
                 </div>
               </li>
             ) : (
-              <Link className="text-sm font-semibold" href="/register?login=true">Login / Sign Up</Link>
+              <Link
+                className="text-sm font-semibold"
+                href="/register?login=true"
+              >
+                Login / Sign Up
+              </Link>
             )}
           </ul>
         </div>
       </div>
       <div className="flex justify-between items-center p-4 full_screen:hidden">
-        <p className="text-3xl">Perfume Shop</p>
+        <Image
+          src="/images/perfume-logo.svg"
+          alt="Perfume logo"
+          height={200}
+          width={200}
+        />
+
         <Menu
           onClick={() => sideBar("sideBar")}
           className="h-4 w-4 cursor-pointer"

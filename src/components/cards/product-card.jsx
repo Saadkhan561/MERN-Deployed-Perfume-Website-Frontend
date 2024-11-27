@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useFetchProductImages } from "@/hooks/query";
 import Image from "next/image";
+import { ClipLoader } from "react-spinners";
 
 const Card = ({ product, category }) => {
   const { data } = useFetchProductImages({
@@ -28,6 +29,30 @@ const Card = ({ product, category }) => {
     }
   }, [product]);
 
+  // const ImageWithFallback = ({ src, fallbackSrc, alt, ...props }) => {
+  //   const [imgSrc, setImgSrc] = useState(src);
+  //   const [isLoaded, setIsLoaded] = useState(false);
+
+  //   return (
+  //     <div className="relative">
+  //       {/* Loader */}
+  //       {!isLoaded && (
+  //         <div className="h-full w-full flex justify-center items-center">
+  //           <ClipLoader size={30} />
+  //         </div>
+  //       )}
+  //       {/* Image */}
+  //       <Image
+  //         src={imgSrc}
+  //         alt={alt}
+  //         onLoad={() => setIsLoaded(true)}
+  //         onError={() => setImgSrc(fallbackSrc)}
+  //         {...props}
+  //       />
+  //     </div>
+  //   );
+  // };
+
   return (
     <>
       {/* CARD DIV */}
@@ -45,6 +70,14 @@ const Card = ({ product, category }) => {
             style={{ width: "100%", height: "100%", objectFit: "contain" }}
             priority
           />
+          {/* <ImageWithFallback
+            src={`data:image/jpeg;base64,${data && data[0]}`}
+            // fallbackSrc="/favicon.jpg"
+            // alt="Luxury perfume bottle with a floral scent"
+            height={900}
+            style={{ width: "100%", height: "100%", objectFit: "contain" }}
+            width={1600}
+          /> */}
         </div>
         <div className="p-2 flex flex-col gap-1">
           <p className="font-semibold text-lg">{product?.name}</p>

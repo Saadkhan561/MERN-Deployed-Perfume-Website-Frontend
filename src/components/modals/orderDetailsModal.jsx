@@ -18,11 +18,11 @@ const OrderDetail = ({ clearQueryParam }) => {
   orderDate.setDate(orderDate.getDate() + 7);
 
   return (
-    <DialogContent className="bg-white p-8 font-sans md:pt-14 pt-10 w-[90%] lg:h-4/5 h-[90%] rounded-lg sm:w-3/5">
-      {isLoading ? (
+    <DialogContent className="bg-white p-2 sm:p-6 font-sans md:pt-14 pt-10 w-[90%] lg:h-4/5 h-[90%] rounded-lg sm:w-3/5">
+      {isLoading? (
         <OrderDetailsSkeleton />
       ) : (
-        <div className="flex flex-col gap-4 h-4/5">
+        <div className="flex flex-col gap-4 h-full w-full overflow-y-auto">
           <div className="flex justify-between md:flex-row flex-col items-start gap-2 md:items-center">
             <div>
               <p className="text-gray-500 md:text-sm text-xs">Order Id</p>
@@ -82,7 +82,7 @@ const OrderDetail = ({ clearQueryParam }) => {
             </div>
           </div>
           <p className="text-lg font-semibold">Cart Items :</p>
-          <div className="flex gap-2 md:flex-wrap md:flex-row flex-col  bg-slate-100 p-2 h-[380px] sm:h-[400px] lg:h-[340px] rounded-lg overflow-y-auto">
+          <div className="flex gap-2 md:flex-wrap md:flex-row flex-col border-2 bg-slate-100 p-2 h-[300px] sm:h-[310px] lg:h-[270px] rounded-lg overflow-y-auto">
             {order[0]?.products?.map((product, index) => (
               <OrderItemCard
                 key={index}

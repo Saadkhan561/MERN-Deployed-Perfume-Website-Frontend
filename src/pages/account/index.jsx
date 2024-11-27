@@ -1,4 +1,5 @@
 import AddressForm from "@/components/forms/addressForm";
+import AccountSkeleton from "@/components/loadingSkeletons/accountSkeleton";
 import OrderDetail from "@/components/modals/orderDetailsModal";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { useGetUserOrders } from "@/hooks/query";
@@ -62,7 +63,9 @@ const Account = () => {
                 <div className="text-xl">My Order History</div>
                 <div className="overflow-y-auto max-h-[430px] sm:p-4 p-2">
                   {isOrdersLoading ? (
-                    <div>Loading...</div>
+                    Array.from({length: 5}).map((_,index) => (
+                      <AccountSkeleton key={index} />
+                    ))
                   ) : (
                     orders?.orders?.map((order) => (
                       <div

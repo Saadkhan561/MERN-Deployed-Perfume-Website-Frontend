@@ -52,7 +52,7 @@ const Products = () => {
         </div>
         <div className="flex flex-col items-center gap-10 mt-2 mob_display:mt-2 duration-200 w-full h-full">
           <div className="flex flex-col gap-10 flex-start w-4/5">
-            <div className="flex gap-4 mt-10 flex-wrap mob_display:justify-center mob_display_product:flex-col">
+            <div className="flex gap-4 mt-10 flex-wrap mob_display:justify-center mob_display_product:flex-col mob_display_product:items-center">
               {isProductsLoading ? (
                 <div className="flex gap-4 mt-10 flex-wrap mob_display:justify-center mob_display_product:flex-col">
                   <ProductCardSkeleton />

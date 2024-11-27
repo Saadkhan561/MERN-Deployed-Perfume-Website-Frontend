@@ -50,11 +50,11 @@ const CartItem = ({ itemKey, itemValue }) => {
                       <div className="border border-slate-300 rounded-md p-1 flex z-20">
                         <Minus
                           onClick={() => decrementQuantity(optionKey, itemKey)}
-                          className="h-3 w-3 cursor-pointer hover:bg-slate-200 duration-200 "
+                          className="h-5 w-5 cursor-pointer hover:bg-slate-200 duration-200 "
                         />
                         <Plus
                           onClick={() => incrementQuantity(optionKey, itemKey)}
-                          className="h-3 w-3 cursor-pointer hover:bg-slate-200 duration-200 "
+                          className="h-5 w-5 cursor-pointer hover:bg-slate-200 duration-200 "
                         />
                       </div>
                     </div>

@@ -311,7 +311,7 @@ const ProductDetails = () => {
             <div className="text-3xl mob_display_product:text-center">
               More Recommendations
             </div>
-            <div className="flex gap-5 flex-wrap p-4 mt-8 mob_display_product:flex-col">
+            <div className="flex gap-5 flex-wrap p-4 mt-8 mob_display_product:flex-col mob_display_product:items-center">
               {isProductsLoading ? (
                 <div>Loading...</div>
               ) : (

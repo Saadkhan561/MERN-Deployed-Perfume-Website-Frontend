@@ -9,6 +9,8 @@ import { Bounce, ToastContainer } from "react-toastify";
 import { useFetchAllCategories } from "@/hooks/query";
 import { ShoppingCart } from "lucide-react";
 import useCartStore from "@/store/cart";
+import Image from "next/image";
+import Whatsapp from "@/icons/whatsapp";
 
 const Layout = ({ children }) => {
   const router = useRouter();
@@ -18,6 +20,11 @@ const Layout = ({ children }) => {
   const pathName = router.asPath.split("/");
 
   const { cart } = useCartStore();
+
+  const sendMsg = () => {
+    const url = "https://wa.me/923322966011?text=Hello"
+    router.push(url)
+  }
   return (
     <div className="w-full h-sreen relative overflow-x-hidden font-sans">
       <ToastContainer
@@ -26,21 +33,26 @@ const Layout = ({ children }) => {
         autoClose={1000}
         hideProgressBar={true}
       />
-      {pathName.includes("checkout") ? null : (
-        <button
-          onClick={() => router.push("/cart")}
-          className="fixed bottom-14 right-14 z-20  mob_display:block hidden"
-        >
-          <ShoppingCart
-            size={40}
-            color="black"
-            className="p-1 bg-white rounded-lg border-2"
-          />
-          <p className="absolute -top-4 -right-2 bg-black text-white p-1 text-sm rounded-lg">
-            {Object.keys(cart).length}
-          </p>
+      <div className="fixed bottom-14 right-14 z-20 flex flex-col gap-2">
+        {pathName.includes("checkout") || pathName.includes("cart") ? null : (
+          <button
+            onClick={() => router.push("/cart")}
+            className="mob_display:block hidden p-2 bg-white rounded-full border-2"
+          >
+            <ShoppingCart
+              size={30}
+              color="black"
+              className=""
+            />
+            <p className="absolute -top-4 -right-2 bg-black text-white p-1 text-sm rounded-lg">
+              {Object.keys(cart).length}
+            </p>
+          </button>
+        )}
+        <button onClick={() => sendMsg()} className="p-2 rounded-full border-2 bg-white">
+          <Whatsapp />
         </button>
-      )}
+      </div>
       <div
         className={
           Boolean(router.query.sideBar) || Boolean(router.query.payment)

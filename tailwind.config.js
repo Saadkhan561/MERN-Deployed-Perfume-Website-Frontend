@@ -99,10 +99,32 @@ module.exports = {
             height: "0",
           },
         },
+        "popup-in": {
+          from: {
+            opacity: "0",
+            transform: "translateX(20px)",
+          },
+          to: {
+            opacity: "1",
+            transform: "translateX(0px)",
+          },
+        },
+        "popup-out": {
+          from: {
+            opacity: "1",
+            transform: "translateX(0px)",
+          },
+          to: {
+            opacity: "0",
+            transform: "translateX(20px)",
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "popup-in": "popup-in 0.2s ease-in forwards",
+        "popup-out": "popup-out 0.2s ease-in forwards",
       },
     },
   },

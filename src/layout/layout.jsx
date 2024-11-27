@@ -1,6 +1,6 @@
 import Footer from "@/components/common/footer";
 import Navbar from "@/components/common/navbar";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import PaymentOption from "@/components/paymentOption";
 import SideBar from "@/components/common/side-bar";
@@ -9,10 +9,24 @@ import { Bounce, ToastContainer } from "react-toastify";
 import { useFetchAllCategories } from "@/hooks/query";
 import { ShoppingCart } from "lucide-react";
 import useCartStore from "@/store/cart";
-import Image from "next/image";
 import Whatsapp from "@/icons/whatsapp";
 
 const Layout = ({ children }) => {
+  // const [msgVisible, setMsgVisible] = useState(true);
+  // const [isExiting, setIsExiting] = useState(false);
+
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     setIsExiting(true);
+  //     setTimeout(() => {
+  //       setMsgVisible(false);
+  //       setIsExiting(false);
+  //     }, 500);
+  //   }, 3000);
+
+  //   return () => clearTimeout(timer);
+  // }, []);
+
   const router = useRouter();
 
   const { data: categories } = useFetchAllCategories();
@@ -22,9 +36,10 @@ const Layout = ({ children }) => {
   const { cart } = useCartStore();
 
   const sendMsg = () => {
-    const url = "https://wa.me/923322966011?text=Hello"
-    router.push(url)
-  }
+    const url = "https://wa.me/923322966011?text=Hello";
+    router.push(url);
+  };
+
   return (
     <div className="w-full h-sreen relative overflow-x-hidden font-sans">
       <ToastContainer
@@ -39,25 +54,30 @@ const Layout = ({ children }) => {
             onClick={() => router.push("/cart")}
             className="mob_display:block hidden p-2 bg-white rounded-full border-2"
           >
-            <ShoppingCart
-              size={30}
-              color="black"
-              className=""
-            />
+            <ShoppingCart size={30} color="black" className="" />
             <p className="absolute -top-4 -right-2 bg-black text-white p-1 text-sm rounded-lg">
               {Object.keys(cart).length}
             </p>
           </button>
         )}
-        <button onClick={() => sendMsg()} className="p-2 rounded-full border-2 bg-white">
+
+        <button
+          onClick={sendMsg}
+          className="p-2 rounded-full border-2 bg-white relative group"
+        >
           <Whatsapp />
+          <p
+            className={`absolute top-1 right-14 text-sm p-2 w-max bg-black text-white rounded-xl opacity-0 group-hover:opacity-100 group-hover:animate-popup-in`}
+          >
+            Chat with us!
+          </p>
         </button>
       </div>
       <div
         className={
           Boolean(router.query.sideBar) || Boolean(router.query.payment)
             ? "flex flex-col min-h-screen relative opacity-25 duration-200"
-            : "flex flex-col   min-h-screen relative duration-20"
+            : "flex flex-col min-h-screen relative duration-20"
         }
       >
         <div className="flex flex-col items-center  bg-white fixed top-0 left-0 z-30 w-full h-20">

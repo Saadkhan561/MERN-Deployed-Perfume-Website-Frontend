@@ -33,7 +33,7 @@ const Layout = ({ children }) => {
         autoClose={1000}
         hideProgressBar={true}
       />
-      <div className="fixed bottom-14 right-14 z-20 flex flex-col gap-2">
+      <div className="fixed bottom-10 right-10 z-20 flex flex-col gap-2">
         {pathName.includes("checkout") || pathName.includes("cart") ? null : (
           <button
             onClick={() => router.push("/cart")}

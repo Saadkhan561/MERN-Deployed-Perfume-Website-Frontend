@@ -5,7 +5,7 @@ const CartItemDetails = ({key, value}) => {
     <div>
       <div key={key}>
         <div key={key} className="flex justify-between">
-          <div className="flex gap-1 font-semibold">
+          <div className="flex gap-1">
             <p>
               {value.name} x {value.totalQuantity}
             </p>

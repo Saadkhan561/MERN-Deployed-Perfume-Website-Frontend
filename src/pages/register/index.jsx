@@ -7,6 +7,12 @@ import Image from "next/image";
 import { Bounce, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+import localFont from "next/font/local";
+
+const myFont = localFont({
+  src: "../../../public/fonts/JosefinSans-Regular.ttf",
+});
+
 const Register = () => {
   const router = useRouter();
   const [isLogin, setIsLogin] = useState(false);
@@ -34,7 +40,7 @@ const Register = () => {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen font-sans">
+    <div className={`flex justify-center items-center h-screen font-sans ${myFont.className}`}>
       <Meta
         title={isLogin ? "Login - Perfume Shop" : "Register - Perfume Shop"}
         description="Create an account or log in to access the best perfumes and exclusive offers."
@@ -57,8 +63,8 @@ const Register = () => {
         <div
           className={
             isLogin
-              ? "absolute top-0 left-0 h-full z-10 w-1/2 rounded-md bg-gray-900 text-white translate-x-full duration-500 flex justify-center items-center text-xl font-semibold"
-              : "absolute top-0 left-0 h-full z-10 w-1/2 rounded-md bg-gray-900 text-white translate-x-0 duration-500 flex justify-center items-center text-xl font-semibold"
+              ? "absolute top-0 left-0 h-full z-10 w-1/2 rounded-md bg-gray-900 text-white translate-x-full duration-500 flex justify-center items-center text-xl "
+              : "absolute top-0 left-0 h-full z-10 w-1/2 rounded-md bg-gray-900 text-white translate-x-0 duration-500 flex justify-center items-center text-xl"
           }
         >
           {!isLogin ? (

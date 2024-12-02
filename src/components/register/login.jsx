@@ -128,7 +128,7 @@ const Login = () => {
         </div>
         <div className="text-end">
           <button
-            className="font-semibold bg-gray-900 text-white p-1 pl-2 pr-2 rounded-md"
+            className=" bg-gray-900 text-white p-1 pl-2 pr-2 rounded-md"
             type="submit"
             disabled={isLoginPending}
           >

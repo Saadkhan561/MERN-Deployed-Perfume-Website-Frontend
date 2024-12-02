@@ -27,7 +27,7 @@ const ServiceCard = () => {
           key={key}
         >
           <div className="w-full flex justify-center">{icon}</div>
-          <p className="text-xl font-semibold">{heading}</p>
+          <p className="text-xl">{heading}</p>
           <p>{text}</p>
         </div>
       ))}

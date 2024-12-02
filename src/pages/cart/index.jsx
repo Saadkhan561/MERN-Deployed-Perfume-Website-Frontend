@@ -67,10 +67,10 @@ const Cart = () => {
         <div className="flex cart:flex-col w-11/12 h-screen mob_display:mt-10">
           <div className="p-4 cart:p-1 overflow-y-auto w-full cart:pb-10">
             <div className="flex flex-col gap-2 p-2">
-              <div className="text-3xl font-semibold p-1">Your Cart Items</div>
+              <div className="text-3xl p-1">Your Cart Items</div>
               {cartLength === 0 ? (
                 <div className="flex flex-col gap-2">
-                  <p className="text-lg font-semibold">Your cart is empty</p>
+                  <p className="text-lg">Your cart is empty</p>
                   <Link
                     className="p-1 text-sm font-semibold border-2 rounded-lg w-max"
                     href="/categories"
@@ -107,7 +107,7 @@ const Cart = () => {
                   {" "}
                   <button
                     onClick={() => router.push("/checkout")}
-                    className=" bg-black text-white text-base font-semibold w-[200px] hover:bg-gray-700 hover:cursor-pointer duration-200 flex justify-center mob_display:text-sm p-1"
+                    className=" bg-black text-white text-base w-[200px] hover:bg-gray-700 hover:cursor-pointer duration-200 flex justify-center mob_display:text-sm p-1"
                   >
                     Proceed to checkout
                   </button>

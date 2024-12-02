@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useFetchProductImages } from "@/hooks/query";
 import Image from "next/image";
-import { ClipLoader } from "react-spinners";
 
 const Card = ({ product, category }) => {
   const { data } = useFetchProductImages({
@@ -60,9 +59,9 @@ const Card = ({ product, category }) => {
         onClick={() => router.push(`/products/${product?._id}`)}
         className="w-[220px] relative mob_display:w-[180px] mob_display_product:w-[220px] cursor-pointer hover:scale-105 duration-100 group hover:shadow-lg"
       >
-        <div className="flex justify-center pb-10 h-[350px]">
+        <div className="flex justify-center h-[250px]">
           <Image
-            className="group-hover:opacity-90 duration-200 border rounded-lg p-1"
+            className="group-hover:opacity-90 duration-200 p-1"
             src={`data:image/jpeg;base64,${data && data[0]}`}
             alt="Luxury perfume bottle with a floral scent"
             height={900}
@@ -80,13 +79,13 @@ const Card = ({ product, category }) => {
           /> */}
         </div>
         <div className="p-2 flex flex-col gap-1">
-          <p className="font-semibold text-lg">{product?.name}</p>
+          <p className="text-lg">{product?.name}</p>
           {Object.entries(product?.options)
             .slice(0, 1)
             .map(([option, value]) => (
               <div
                 key={option}
-                className="flex text-gray-700 text-xs font-semibold justify-between"
+                className="flex text-gray-700 text-xs justify-between"
               >
                 {value.discount !== 0 ? (
                   <div className="flex gap-2">

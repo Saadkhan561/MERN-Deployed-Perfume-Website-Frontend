@@ -5,6 +5,7 @@ import Card from "@/components/cards/product-card";
 import React from "react";
 import Image from 'next/image'
 import Link from 'next'
+import { ClipLoader } from "react-spinners";
 
 const SearchResults = () => {
   const router = useRouter();
@@ -51,10 +52,12 @@ const SearchResults = () => {
             <div className="flex flex-wrap gap-8 w-11/12 p-10 mob_display_product:gap-x-4 mob_display_product:gap-y-10 mob_display_product:p-2 mob_display:justify-center">
               {isError ? (
                 <div className="w-full flex justify-center">
-                  <p className="text-2xl font-semibold">No resuts found...</p>
+                  <p className="text-2xl">No resuts found...</p>
                 </div>
               ) : isLoading ? (
-                <p>Loading...</p>
+                <div className="w-full h-full flex justify-center items-center">
+                  <ClipLoader size={40} color="black" />
+                </div>
               ) : (
                 searchResults?.map((product) => (
                   <Card

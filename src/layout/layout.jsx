@@ -11,6 +11,12 @@ import { ShoppingCart } from "lucide-react";
 import useCartStore from "@/store/cart";
 import Whatsapp from "@/icons/whatsapp";
 
+import localFont from 'next/font/local'
+
+  const myFont = localFont({
+    src: "../../public/fonts/JosefinSans-Regular.ttf",
+  });
+
 const Layout = ({ children }) => {
   // const [msgVisible, setMsgVisible] = useState(true);
   // const [isExiting, setIsExiting] = useState(false);
@@ -41,7 +47,7 @@ const Layout = ({ children }) => {
   };
 
   return (
-    <div className="w-full h-sreen relative overflow-x-hidden font-sans">
+    <div className={`w-full h-sreen relative overflow-x-hidden font-sans ${myFont.className}`}>
       <ToastContainer
         position="top-center"
         transition={Bounce}
@@ -85,7 +91,7 @@ const Layout = ({ children }) => {
             <Navbar />
           </div>
           <div className="flex justify-center bg-white w-full h-max p-4 ">
-            <ul className="flex items-center gap-4 uppercase sm:text-base text-sm">
+            <ul className="flex items-center gap-4 uppercase sm:text-base text-sm text-[#BB8C1C]">
               <Link
                 className="hover:border-b border-slate-500 duration-100"
                 href="/"

@@ -32,7 +32,7 @@ const CartItem = ({ itemKey, itemValue }) => {
           <div className="flex flex-col gap-2">
             <Link
               href={`/products/${itemKey}`}
-              className=" text-lg font-semibold hover:underline"
+              className=" text-lg hover:underline"
             >
               {itemValue.name}
             </Link>

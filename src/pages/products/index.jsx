@@ -64,7 +64,7 @@ const Products = () => {
               ) : products?.message ? (
                 <div className="flex justify-center items-center w-full h-full ">
                   <div className="flex justify-center p-4 gap-2 items-center">
-                    <p className="text-2xl font-semibold">{products.message}</p>
+                    <p className="text-2xl">{products.message}</p>
                   </div>
                 </div>
               ) : (

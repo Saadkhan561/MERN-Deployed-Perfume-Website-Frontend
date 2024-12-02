@@ -149,14 +149,14 @@ const Checkout = () => {
           onSubmit={handleSubmit(onSubmit)}
           className=" rounded-lg p-8 h-full sm:w-11/12 w-full"
         >
-          <Link href="/cart" className="flex gap-2 items-center font-semibold">
+          <Link href="/cart" className="flex gap-2 items-center ">
             <ArrowLeft size={15} />
             Back to cart
           </Link>
 
           <div className="grid sm:grid-cols-2 grid-rows-2 sm:gap-8 gap-20 sm:mt-6 mt-8">
             <div>
-              <div className="text-3xl text-center mb-6 font-semibold">
+              <div className="text-3xl text-center mb-6">
                 Delivery Details
               </div>
               <div
@@ -306,7 +306,7 @@ const Checkout = () => {
             </div>
             <div className="flex flex-col gap-8 sm:justify-between">
               <div className="flex flex-col gap-2">
-                <p className="text-2xl font-semibold">Item details</p>
+                <p className="text-2xl">Item details</p>
                 {Object.entries(cart).map(([key, value]) => (
                   <CartItemDetails key={key} value={value} />
                 ))}

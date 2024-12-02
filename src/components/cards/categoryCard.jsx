@@ -4,10 +4,12 @@ import { categoryImages } from "../../../categoryImages";
 import { useRouter } from "next/navigation";
 
 const CategoryCard = ({ name, index, id }) => {
-  const router = useRouter()
+  const router = useRouter();
   return (
-    <div onClick={() => router.push(`/products?id=${id}`)} className="sm:w-[600px] w-[400px] rounded-lg flex flex-col gap-4 items-center p-4 hover:scale-105 cursor-pointer duration-500 group">
-      <p className="text-xl font-semibold capitalize underline">{name}</p>
+    <div
+      onClick={() => router.push(`/products?id=${id}`)}
+      className="sm:w-[600px] w-[400px] rounded-lg flex flex-col gap-4 items-center p-4 hover:scale-105 cursor-pointer duration-500 group"
+    >
       <Image
         className="aspect-square group-hover:opacity-90 duration-200"
         src={`/images/${categoryImages[index]}.jpg`}
@@ -17,13 +19,16 @@ const CategoryCard = ({ name, index, id }) => {
         style={{ width: "100%", height: "100%", objectFit: "cover" }}
         priority
       />
-      <p className="text-gray-500 text-sm text-center" >
+      <p className="text-2xl uppercase">{name}</p>
+      <p className="text-gray-500 text-sm text-center">
         Discover the essence of luxury with our exclusive range of perfumes.
         Crafted from the finest ingredients, each fragrance tells a unique
         story, leaving a lasting impression. Find your perfect scent and elevate
         every moment.
       </p>
-      <button className="border-b-2 border-black p-1 font-semibold">Shop now</button>
+      <button className="border-b text-sm border-black p-1  text-gray-500">
+        Shop now
+      </button>
     </div>
   );
 };

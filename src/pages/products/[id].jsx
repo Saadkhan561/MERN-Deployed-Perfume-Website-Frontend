@@ -174,7 +174,7 @@ const ProductDetails = () => {
                 <div className="flex flex-col gap-3 w-full mob_display:w-11/12">
                   <div className="flex flex-col gap-2">
                     <div>
-                      <p className="text-3xl mob_display:text-xl font-semibold">
+                      <p className="text-3xl mob_display:text-xl">
                         {product.name}
                       </p>
                       {product.options[amount].discount !== 0 && (
@@ -210,7 +210,7 @@ const ProductDetails = () => {
                     </div>
                   </div>
                   <div>
-                    <p className="text-xl mob_display:text-base font-semibold">
+                    <p className="text-xl mob_display:text-base">
                       Description
                     </p>
                     <p className="text-sm">{product.description}</p>
@@ -237,7 +237,7 @@ const ProductDetails = () => {
                               {...register("amount")}
                             />
                             <label
-                              className="text-black peer-checked:bg-black text-center pb-6 rounded-md duration-200 peer-checked:text-white border border-black cursor-pointer w-[70px] h-[20px]"
+                              className="text-black peer-checked:bg-black text-center pb-6 pt-1 rounded-md duration-200 peer-checked:text-white border border-black cursor-pointer w-[70px] h-[20px]"
                               htmlFor={`option${key}`}
                             >
                               {key}ml
@@ -292,7 +292,7 @@ const ProductDetails = () => {
                     )}
                     <button
                       type="submit"
-                      className={`bg-black text-white w-11/12 text-lg font-semibold   duration-200 flex justify-center mob_display:text-sm p-2 ${
+                      className={`bg-black text-white w-11/12 text-lg duration-200 flex justify-center mob_display:text-sm p-2 ${
                         product.options[amount].quantityAvailable === 0
                           ? "opacity-50"
                           : "hover:bg-gray-700 hover:cursor-pointer"

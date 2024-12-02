@@ -27,7 +27,7 @@ const Account = () => {
 
   const clearQueryParam = () => {
     const updatedQuery = { ...router.query };
-    delete updatedQuery.orderId; // Remove the 'orderId' query param
+    delete updatedQuery.orderId; 
 
     router.replace(
       {
@@ -59,7 +59,7 @@ const Account = () => {
           {/* <p className="text-5xl">My Account</p> */}
           <div className="flex justify-center">
             <div className="w-11/12 flex lg:flex-row flex-col-reverse lg:gap-0 gap-14">
-              <div className="w-full  font-semibold ">
+              <div className="w-full">
                 <div className="text-xl">My Order History</div>
                 <div className="overflow-y-auto max-h-[430px] sm:p-4 p-2">
                   {isOrdersLoading ? (
@@ -118,8 +118,8 @@ const Account = () => {
               </div>
               <div className="w-full flex flex-col items-start lg:items-end gap-2 md:ml-10 lg-0">
                 <div className="flex flex-col gap-2">
-                  <p className="text-3xl font-semibold mb-5">Account Details</p>
-                  <p className="text-lg font-semibold">
+                  <p className="text-3xl  mb-5">Account Details</p>
+                  <p className="text-lg">
                     {currentUser?.user.first_name} {currentUser?.user.last_name}
                   </p>
                   {addressForm ? (
@@ -143,7 +143,7 @@ const Account = () => {
                     <button
                       type="button"
                       onClick={() => setAddressForm(!addressForm)}
-                      className="p-1 rounded-lg border-2 border-black text-center font-semibold"
+                      className="p-1 rounded-lg border-2 border-black text-center"
                     >
                       Add address
                     </button>

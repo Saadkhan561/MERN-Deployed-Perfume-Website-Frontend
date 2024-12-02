@@ -70,7 +70,7 @@ export default function Home() {
             />
           </Slider>
         </div>
-        <div className="flex justify-center gap-16 mob_display:items-center mob_display:mt-20">
+        <div className="flex justify-center gap-16 mob_display:items-center mt-8 mob_display:mt-20">
           <div className="w-11/12 flex flex-col items-center gap-28">
             {/* TRENDING DIV */}
             <div>

@@ -178,7 +178,7 @@ const SignUp = () => {
         </div>
         <div className="text-end">
           <button
-            className="font-semibold bg-gray-900 w-40 text-white p-1 px-2 rounded-md"
+            className=" bg-gray-900 w-40 text-white p-1 px-2 rounded-md"
             type="submit"
             disabled={isSignupPending}
           >

@@ -150,6 +150,7 @@ const ProductForm = () => {
 
   const handleImageChange = (e) => {
     const selectedFiles = Array.from(e.target.files);
+    console.log(selectedFiles)
     // Validate the selected images before setting them in state
     if (validateImages(selectedFiles)) {
       if (images.length + selectedFiles.length > 5) {

@@ -5,23 +5,65 @@ import { DialogContent } from "../ui/dialog";
 import { ClipLoader } from "react-spinners";
 import useUserStore from "@/store/user";
 
-const AddCagtegory = ({refetchCategories}) => {
+const AddCagtegory = ({ refetchCategories }) => {
   const [category, setCategory] = useState("");
+  const [img, setImg] = useState("");
+  const [imgError, setImgError] = useState(null);
   const [categoryError, setCategoryError] = useState("");
-  const {currentUser} = useUserStore()
-  const role = currentUser?.user.role
+  const { currentUser } = useUserStore();
+  const role = currentUser?.user.role;
   const { mutate: addCategory, isPending: isAddCategoryPending } =
     useAddCategory({
       onSuccess(data) {
         console.log(data);
         toast.success(data.message);
-        refetchCategories()
+        refetchCategories();
       },
       onError(err) {
         console.log(err);
         toast.error(err);
       },
     });
+
+  const handleImageChange = (e) => {
+    const selectedFile = e.target.files[0];
+    console.log(selectedFile)
+    if (validateImages(selectedFile)) {
+      setImg(selectedFile);
+    } else {
+      setImgError(null);
+    }
+  };
+
+  const validateImages = (file) => {
+    // if (files.length > 1) {
+    //   setImgLengthError("Only one images must be uploaded for a product");
+    //   return false;
+    // } else {
+    //   setImgLengthError(null);
+    // }
+    // for (let file of files) {
+    //   console.log("file", files[0])
+    //   if (!["image/jpeg", "image/png"].includes(file.type)) {
+    //     setImgError("Only JPEG and PNG images are allowed");
+    //     return false;
+    //   }
+    //   if (file.size > 2 * 1024 * 1024) {
+    //     setImgError("Each image must be smaller than 2MB");
+    //     return false;
+    //   }
+    // }
+    console.log(file.type)
+    if (!["image/jpeg", "image/png"].includes(file.type)) {
+      setImgError("Only JPEG and PNG images are allowed");
+      return false;
+    }
+    if (file.size > 2 * 1024 * 1024) {
+      setImgError("Each image must be smaller than 2MB");
+      return false;
+    }
+    return true;
+  };
 
   const handleSubmit = () => {
     if (category === "") {
@@ -31,6 +73,8 @@ const AddCagtegory = ({refetchCategories}) => {
       addCategory({ name: category, role: role });
     }
   };
+
+  console.log("img", img, imgError);
   return (
     <DialogContent className="w-max p-12 h-max flex flex-col gap-4 pt-10 font-sans">
       <p className="text-2xl font-semibold">Enter a new category</p>
@@ -50,6 +94,20 @@ const AddCagtegory = ({refetchCategories}) => {
           <p className="text-xs text-red-500">{categoryError}</p>
         )}
       </div>
+      <div>
+        <label>Images: </label>
+        <input type="file" onClick={handleImageChange} />
+      </div>
+      {img && (
+        <Image
+          src={URL.createObjectURL(img)}
+          alt={`uploaded-preview-0`}
+          className=" aspect-square m-1 border rounded"
+          height={100}
+          width={100}
+        />
+      )}
+      {imgError && <p className="text-sm text-red-500">{imgError}</p>}
       <button
         onClick={handleSubmit}
         type="submit"

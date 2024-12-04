@@ -4,6 +4,8 @@ import { toast } from "react-toastify";
 import { DialogContent } from "../ui/dialog";
 import { ClipLoader } from "react-spinners";
 import useUserStore from "@/store/user";
+import Image from "next/image";
+import { X } from "lucide-react";
 
 const AddCagtegory = ({ refetchCategories }) => {
   const [category, setCategory] = useState("");
@@ -27,11 +29,10 @@ const AddCagtegory = ({ refetchCategories }) => {
 
   const handleImageChange = (e) => {
     const selectedFile = e.target.files[0];
-    console.log(selectedFile)
     if (validateImages(selectedFile)) {
       setImg(selectedFile);
     } else {
-      setImgError(null);
+      setImg(null);
     }
   };
 
@@ -53,7 +54,7 @@ const AddCagtegory = ({ refetchCategories }) => {
     //     return false;
     //   }
     // }
-    console.log(file.type)
+
     if (!["image/jpeg", "image/png"].includes(file.type)) {
       setImgError("Only JPEG and PNG images are allowed");
       return false;
@@ -62,6 +63,7 @@ const AddCagtegory = ({ refetchCategories }) => {
       setImgError("Each image must be smaller than 2MB");
       return false;
     }
+    setImgError(null);
     return true;
   };
 
@@ -74,7 +76,6 @@ const AddCagtegory = ({ refetchCategories }) => {
     }
   };
 
-  console.log("img", img, imgError);
   return (
     <DialogContent className="w-max p-12 h-max flex flex-col gap-4 pt-10 font-sans">
       <p className="text-2xl font-semibold">Enter a new category</p>
@@ -96,16 +97,24 @@ const AddCagtegory = ({ refetchCategories }) => {
       </div>
       <div>
         <label>Images: </label>
-        <input type="file" onClick={handleImageChange} />
+        <input type="file" onChange={handleImageChange} />
       </div>
       {img && (
-        <Image
-          src={URL.createObjectURL(img)}
-          alt={`uploaded-preview-0`}
-          className=" aspect-square m-1 border rounded"
-          height={100}
-          width={100}
-        />
+        <div className="relative w-max">
+          <Image
+            src={URL.createObjectURL(img)}
+            alt={`uploaded-preview-0`}
+            className=" aspect-square m-1 border rounded"
+            height={100}
+            width={100}
+          />
+          <div
+            onClick={() => setImg("")}
+            className="absolute top-0 right-0 p-1 cursor-pointer rounded-full bg-red-500 text-white"
+          >
+            <X className="h-3 w-3" />
+          </div>
+        </div>
       )}
       {imgError && <p className="text-sm text-red-500">{imgError}</p>}
       <button

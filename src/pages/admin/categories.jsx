@@ -200,6 +200,7 @@ const Categories = () => {
                                 deleteCategory({
                                   id: category._id,
                                   role: role,
+                                  category: category.name
                                 })
                               }
                               type="button"

@@ -1,4 +1,4 @@
-import { fetchCategoryById } from "@/services/categoryService";
+import { fetchCategoryById, fetchCategoryImages } from "@/services/categoryService";
 import {
   getOrders,
   getUserOrderById,
@@ -113,3 +113,10 @@ export const useGetUserOrderById = (params, options) => {
   });
 };
 
+export const useFetchCategoryImages = (params, options) => {
+  return useQuery({
+    ...options,
+    queryKey: ['categoryImage', params],
+    queryFn: () => fetchCategoryImages(params)
+  })
+}

@@ -231,7 +231,7 @@ const Orders = () => {
                       <TableCell>
                         <Dialog>
                           <DialogTrigger asChild>
-                            <button className="p-1 rounded-lg text-sm bg-blue-700 text-white text-center w-24">
+                            <button className="p-1 rounded-lg font-semibold border-2  text-center w-24">
                               Send Email
                             </button>
                           </DialogTrigger>

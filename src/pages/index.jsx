@@ -4,7 +4,7 @@ import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import Card from "@/components/cards/product-card";
 import { useEffect } from "react";
-import Image from 'next/image'
+import Image from "next/image";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { useFetchAllCategories, useFetchTrendingProducts } from "@/hooks/query";
@@ -17,7 +17,6 @@ import Meta from "@/components/metaTags/meta";
 import SliderImageCard from "@/components/cards/sliderImageCard";
 
 export default function Home() {
-
   const { data: categories, isLoading: isCategoryLoading } =
     useFetchAllCategories();
 
@@ -105,7 +104,7 @@ export default function Home() {
               </div>
             </div>
             {/* PRODUCTS DIV */}
-            <div className="flex flex-col items-center gap-3 w-full">
+            <div className="flex flex-col items-center  gap-3 w-full">
               <div className="flex w-full justify-around flex-wrap">
                 {isCategoryLoading ? (
                   <div className="flex w-full justify-evenly flex-wrap">
@@ -115,7 +114,7 @@ export default function Home() {
                 ) : (
                   categories?.map((category, index) => (
                     <CategoryCard
-                    key={category._id}
+                      key={category._id}
                       id={category._id}
                       name={category.name}
                       index={index}

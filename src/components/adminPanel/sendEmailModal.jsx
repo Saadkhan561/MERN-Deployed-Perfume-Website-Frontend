@@ -15,7 +15,7 @@ const SendEmail = ({ customerId }) => {
   const { mutate: sendEmail, isPending: isSendEmailPending } = useSendEmail({
     onSuccess(data) {
       toast.success(data.message);
-      reset()
+      reset();
     },
     onError(err) {
       toast.error(err);
@@ -29,7 +29,7 @@ const SendEmail = ({ customerId }) => {
     register,
     handleSubmit,
     formState: { errors },
-    reset
+    reset,
   } = useForm({
     initialValues: initialValues,
     resolver: yupResolver(sendEmailSchema),
@@ -46,27 +46,35 @@ const SendEmail = ({ customerId }) => {
   return (
     <DialogContent className="pt-10 w-2/5 font-sans">
       <p className="text-2xl font-semibold">Send Email</p>
-      <form className="flex flex-col gap-2" onSubmit={handleSubmit(onSubmit)}>
+      <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
         <div className="flex flex-col gap-1">
-          <label className="text-gray-500 text-sm">Enter subject</label>
-          <input
-            type="text"
-            placeholder="Enter a subject..."
-            className="cart_input_field"
-            {...register("subject")}
-          />
+          <label className="text-sm  register_mini_div:text-xs  text-slate-500">
+            Enter subject
+          </label>
+          <div className="cart_input_field">
+            <input
+              type="text"
+              placeholder="Enter a subject..."
+              className="w-full focus:outline-none"
+              {...register("subject")}
+            />
+          </div>
           {errors.subject && (
             <p className="text-red-500 text-sm">{errors.subject.message}</p>
           )}
         </div>
         <div className="flex flex-col gap-1">
-          <label className="text-gray-500 text-sm">Enter tracking ID</label>
-          <input
-            type="number"
-            placeholder="Enter tracking ID..."
-            className="cart_input_field"
-            {...register("trackingId")}
-          />
+          <label className="text-sm  register_mini_div:text-xs  text-slate-500">
+            Enter tracking ID
+          </label>
+          <div className="cart_input_field">
+            <input
+              type="number"
+              placeholder="Enter tracking ID..."
+              className="w-full focus:outline-none"
+              {...register("trackingId")}
+            />
+          </div>
           {errors.trackingId && (
             <p className="text-red-500 text-sm">{errors.trackingId.message}</p>
           )}

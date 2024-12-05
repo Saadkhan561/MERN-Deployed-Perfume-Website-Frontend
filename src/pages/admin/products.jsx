@@ -214,21 +214,21 @@ const Products = () => {
                       </TableCell>
                       <TableCell>
                         {product.pinned ? (
-                          <div className="flex items-center justify-between gap-1 w-20 p-1 rounded-lg bg-blue-700 text-white">
+                          <div className="flex items-center justify-between gap-1 max-w-20 min-w-max border-2 font-semibold p-1 rounded-lg ">
                             <p>Pinned</p>
                             <Pin size={12} />
                           </div>
                         ) : (
-                          <p className="p-1 text-center rounded-lg w-20 border border-slate-300 bg-slate-100">
+                          <p className="p-1 text-center rounded-lg max-w-20 min-w-max border-2 font-semibold border-slate-300 bg-slate-100">
                             Not pinned
                           </p>
                         )}
                       </TableCell>
                       <TableCell className="w-max">
                         <p
-                          className={`p-1 rounded-lg ${
+                          className={`p-1 rounded-lg border-2 font-semibold ${
                             product.productStatus
-                              ? "bg-blue-700 text-white"
+                              ? "border-green-600 text-green-600"
                               : "bg-slate-100 border border-slate-500 text-black"
                           } text-sm w-20 text-center`}
                         >
@@ -262,7 +262,7 @@ const Products = () => {
                                   shallow: true,
                                 })
                               }
-                              className="text-sm p-1 rounded-lg text-white text-center bg-blue-700 w-16"
+                              className="font-semibold border-2 p-1 rounded-lg text-center w-20 "
                             >
                               Edit
                             </button>

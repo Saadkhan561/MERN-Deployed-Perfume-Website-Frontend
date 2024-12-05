@@ -1,7 +1,7 @@
 import axiosInstance from "../../axiosConfig";
 
 export const addCategory = async (data) => {
-  console.log(data)
+  console.log(data);
   try {
     const res = await axiosInstance.post("/addCategory", data);
     return res.data;
@@ -34,6 +34,15 @@ export const fetchCategoryById = async (params) => {
 export const udpateCategory = async (data) => {
   try {
     const res = await axiosInstance.put("/updateCategory", data);
+    return res.data;
+  } catch (err) {
+    throw new Error(err.message);
+  }
+};
+
+export const fetchCategoryImages = async (params) => {
+  try {
+    const res = await axiosInstance.get(`/categoryImages/${params.category}`);
     return res.data;
   } catch (err) {
     throw new Error(err.message);

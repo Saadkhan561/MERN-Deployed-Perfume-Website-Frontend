@@ -58,7 +58,6 @@ const Categories = () => {
     });
 
   const handleEditCategory = (categoryId) => {
-    console.log("Category", categoryInput);
     if (categoryInput === "") {
       setCategoryError("Field must not be empty!");
     } else {

@@ -17,8 +17,9 @@ const AddCagtegory = ({ refetchCategories }) => {
   const { mutate: addCategory, isPending: isAddCategoryPending } =
     useAddCategory({
       onSuccess(data) {
-        console.log(data);
         toast.success(data.message);
+        setCategory("");
+        setImg("");
         refetchCategories();
       },
       onError(err) {
@@ -37,24 +38,6 @@ const AddCagtegory = ({ refetchCategories }) => {
   };
 
   const validateImages = (file) => {
-    // if (files.length > 1) {
-    //   setImgLengthError("Only one images must be uploaded for a product");
-    //   return false;
-    // } else {
-    //   setImgLengthError(null);
-    // }
-    // for (let file of files) {
-    //   console.log("file", files[0])
-    //   if (!["image/jpeg", "image/png"].includes(file.type)) {
-    //     setImgError("Only JPEG and PNG images are allowed");
-    //     return false;
-    //   }
-    //   if (file.size > 2 * 1024 * 1024) {
-    //     setImgError("Each image must be smaller than 2MB");
-    //     return false;
-    //   }
-    // }
-
     if (!["image/jpeg", "image/png"].includes(file.type)) {
       setImgError("Only JPEG and PNG images are allowed");
       return false;
@@ -68,11 +51,18 @@ const AddCagtegory = ({ refetchCategories }) => {
   };
 
   const handleSubmit = () => {
+    const formData = new FormData();
     if (category === "") {
       setCategoryError("Category is required!");
+    } else if (img === "") {
+      setImgError("Image is required!");
     } else {
       setCategoryError("");
-      addCategory({ name: category, role: role });
+      setImgError("");
+      formData.append("category", category);
+      formData.append("role", role);
+      formData.append("images", img);
+      addCategory(formData);
     }
   };
 

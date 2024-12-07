@@ -37,36 +37,43 @@ export default function Home() {
         {/* MAIN AD DIV */}
         <div className="flex justify-center h-max mob_display:pt-0">
           <Slider
-            className="w-full sm:h-[300px] md:h-[400px] h-[250px] z-20"
+            className="w-full sm:h-[300px] md:h-[400px] h-[400px] z-20"
             {...settings}
           >
             {/* {Array.from({length: 3}).map((img, index) => (
               <SliderImageCard key={index} imgName={index+1} />
             ))} */}
-            <Image
-              className="sm:h-[300px] md:h-[400px] h-[250px] w-full"
-              src="/images/ad_1.jpg"
-              alt=""
-              width={1600}
-              height={900}
-              style={{ width: "100%", height: "100%", objectFit: "cover" }}
-            />
-            <Image
-              className="sm:h-[300px] md:h-[400px] h-[250px] w-full"
-              src="/images/ad_2.jpg"
-              alt=""
-              width={1600}
-              height={900}
-              style={{ width: "100%", height: "100%", objectFit: "cover" }}
-            />
-            <Image
-              className="sm:h-[300px] md:h-[400px] h-[250px] w-full"
-              src="/images/ad_3.jpg"
-              alt=""
-              width={1600}
-              height={900}
-              style={{ width: "100%", height: "100%", objectFit: "cover" }}
-            />
+            <div className="sm:h-[300px] md:h-[400px] h-[400px]">
+              <Image
+                className=" w-full h-full aspect-square"
+                src="/images/ad_1.jpg"
+                alt=""
+                width={1600}
+                height={900}
+                // style={{ width: "100%", height: "100%", objectFit: "contain" }}
+              />
+            </div>
+
+            <div className="sm:h-[300px] md:h-[400px] h-[400px]">
+              <Image
+                className=" w-full h-full aspect-square"
+                src="/images/ad_2.jpg"
+                alt=""
+                width={1600}
+                height={900}
+                // style={{ width: "100%", height: "100%", objectFit: "contain" }}
+              />
+            </div>
+            <div className="sm:h-[300px] md:h-[400px] h-[400px]">
+              <Image
+                className=" w-full h-full aspect-square"
+                src="/images/ad_3.jpg"
+                alt=""
+                width={1600}
+                height={900}
+                // style={{ width: "100%", height: "100%", objectFit: "contain" }}
+              />
+            </div>
           </Slider>
         </div>
         <div className="flex justify-center gap-16 mob_display:items-center mt-8 mob_display:mt-20">

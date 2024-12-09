@@ -6,6 +6,7 @@ import {
   TableBody,
   TableCell,
   TableHead,
+  TableHeader,
   TableRow,
 } from "@/components/ui/table";
 import { useFetchAllCategories } from "@/hooks/query";
@@ -16,6 +17,9 @@ import { ClipLoader } from "react-spinners";
 import useUserStore from "@/store/user";
 import { toast } from "react-toastify";
 import Meta from "@/components/metaTags/meta";
+import EditCategoryModal from "@/components/adminPanel/editCategoryModal";
+import { useRouter } from "next/router";
+import DeleteCategoryModal from "@/components/adminPanel/deleteCategoryModal";
 
 const Categories = () => {
   const [isEdit, setIsEdit] = useState(false);
@@ -32,17 +36,6 @@ const Categories = () => {
     isLoading: isCategoriesLoading,
     refetch: refetchCategories,
   } = useFetchAllCategories();
-
-  const { mutate: deleteCategory, isPending: isDeleteCategoryPending } =
-    useDeleteCategory({
-      onSuccess(data) {
-        toast.success(data.message);
-        refetchCategories();
-      },
-      onError(err) {
-        toast.error(err);
-      },
-    });
 
   const { mutate: updateCategory, isPending: isUpdateCategoryPending } =
     useUpdateCategory({
@@ -66,6 +59,8 @@ const Categories = () => {
     }
   };
 
+  const router = useRouter();
+
   return (
     <AdminLayout>
       <Meta
@@ -85,12 +80,13 @@ const Categories = () => {
               <AddCagtegory refetchCategories={refetchCategories} />
             </Dialog>
           </div>
-          <Table className="mt-5">
-            <TableHead>
+          <Table className="mt-5 table-fixed w-full">
+            <TableHeader>
               <TableRow>
                 <TableHead>Name</TableHead>
+                <TableHead>Parent Category</TableHead>
               </TableRow>
-            </TableHead>
+            </TableHeader>
             <TableBody>
               {isCategoriesLoading ? (
                 <TableRow>
@@ -126,7 +122,81 @@ const Categories = () => {
                         category.name
                       )}
                     </TableCell>
+                    <TableCell>{category.parentCategoryName}</TableCell>
                     <TableCell>
+                      <div className="flex gap-2 items-center">
+                        {/* <Dialog>
+                          <DialogTrigger asChild>
+                            <button className="border-2 p-1 rounded-lg w-20 font-semibold">
+                              Edit
+                            </button>
+                          </DialogTrigger>
+                          <DialogContent>
+                            <EditCategoryModal />
+                          </DialogContent>
+                        </Dialog> */}
+                        <button
+                          onClick={() => {
+                            if (isEdit) {
+                              handleEditCategory(category._id);
+                            } else {
+                              setIsEdit(!isEdit);
+                              setCategoryId(category._id);
+                            }
+                          }}
+                          disabled={
+                            isUpdateCategoryPending &&
+                            isEdit &&
+                            categoryId === category._id
+                          }
+                          className={`text-sm p-1 rounded-lg text-center w-16 ${
+                            isEdit && categoryId === category._id
+                              ? "bg-white text-black border-2 border-slate-200"
+                              : "bg-blue-700 text-white"
+                          }`}
+                        >
+                          {isEdit &&
+                          categoryId === category._id &&
+                          isUpdateCategoryPending ? (
+                            <div className="flex justify-center">
+                              <ClipLoader size={15} color="black" />
+                            </div>
+                          ) : isEdit && categoryId === category._id ? (
+                            "Done"
+                          ) : (
+                            "Edit"
+                          )}
+                        </button>
+                        {isEdit && categoryId === category._id && (
+                          <button
+                            onClick={() => setIsEdit(!isEdit)}
+                            className="text-sm p-1 rounded-lg text-center w-16 bg-white text-black border-2 border-slate-200"
+                          >
+                            Cancel
+                          </button>
+                        )}
+                        <Dialog>
+                          <DialogTrigger asChild>
+                            <button
+                              onClick={() =>
+                                router.push(
+                                  `?id=${category._id}&name=${category.name}&parent=${category.parentCategoryName}`
+                                )
+                              }
+                              className="bg-red-700 text-white p-1 rounded-lg w-20"
+                            >
+                              Delete
+                            </button>
+                          </DialogTrigger>
+                          <DialogContent className="flex flex-col gap-2 font-sans pt-10">
+                            <DeleteCategoryModal
+                              refetchCategories={refetchCategories}
+                            />
+                          </DialogContent>
+                        </Dialog>
+                      </div>
+                    </TableCell>
+                    {/* <TableCell>
                       <div className="flex gap-2">
                         <button
                           onClick={() => {
@@ -200,7 +270,7 @@ const Categories = () => {
                                 deleteCategory({
                                   id: category._id,
                                   role: role,
-                                  category: category.name
+                                  category: category.name,
                                 })
                               }
                               type="button"
@@ -230,40 +300,8 @@ const Categories = () => {
                             </button>
                           </DialogContent>
                         </Dialog>
-                        {/* {isDelete && categoryId === category._id && (
-                            <div className="absolute top-10 w-[250px] shadow-lg z-20 flex flex-col gap-2 p-4 rounded-lg bg-white border-2">
-                              <p className="text-center font-semibold">
-                                Do you want to delete this category?
-                              </p>
-                              <button
-                                onClick={() =>
-                                  deleteCategory({
-                                    id: category._id,
-                                    role: role,
-                                  })
-                                }
-                                type="button"
-                                className={`bg-red-700 text-white p-1 rounded-lg ${
-                                  isDeleteCategoryPending &&
-                                  categoryId === category._id
-                                    ? "opacity-50 duration-200"
-                                    : ""
-                                }`}
-                              >
-                                Delete
-                              </button>
-                              <button
-                                type="button"
-                                onClick={() =>setIsDelete(!isDelete)}
-                                className="bg-black text-white p-1 rounded-lg"
-                              >
-                                Cancel
-                              </button>
-                            </div>
-                          )} */}
-                        {/* </div> */}
                       </div>
-                    </TableCell>
+                    </TableCell> */}
                   </TableRow>
                 ))
               )}

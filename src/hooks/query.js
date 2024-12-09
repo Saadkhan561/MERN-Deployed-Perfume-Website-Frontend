@@ -4,6 +4,7 @@ import {
   getUserOrderById,
   getUserOrders,
 } from "@/services/orderService";
+import { fetchParentCategories } from "@/services/parentCategoryServive";
 import {
   fetchAllCategories,
   fetchAllproducts,
@@ -56,6 +57,14 @@ export const useFetchAllCategories = (options) => {
     queryFn: fetchAllCategories,
   });
 };
+
+export const useFetchParentCategories = (options) => {
+  return useQuery({
+    ...options, 
+    queryKey: ["parent_categories"],
+    queryFn: fetchParentCategories
+  })
+}
 
 export const useFetchCategoryById = (params, options) => {
   return useQuery({

@@ -42,7 +42,9 @@ export const udpateCategory = async (data) => {
 
 export const fetchCategoryImages = async (params) => {
   try {
-    const res = await axiosInstance.get(`/categoryImages/${params.category}`);
+    const res = await axiosInstance.get(
+      `/categoryImages/${params.parentCategory}/${params.category}`
+    );
     return res.data;
   } catch (err) {
     throw new Error(err.message);

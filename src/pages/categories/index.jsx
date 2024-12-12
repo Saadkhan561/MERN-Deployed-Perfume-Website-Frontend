@@ -1,15 +1,16 @@
 import React from "react";
 import Layout from "@/layout/layout";
 import CategoryCard from "@/components/cards/categoryCard";
-import { useFetchAllCategories } from "@/hooks/query";
+import { useFetchAllParentCategories } from "@/hooks/query";
 import Image from "next/image";
 import Link from "next/link";
 import CategoryCardSkeleton from "@/components/loadingSkeletons/categoryCardSkeleton";
 import Meta from "@/components/metaTags/meta";
+import ParentCategoryCard from "@/components/cards/parentCategoryCard";
 
 const Categories = () => {
-  const { data: categories, isLoading: isCategoryLoading } =
-    useFetchAllCategories();
+  const { data: parentCategories, isLoading: isParentCategoriesLoading } =
+    useFetchAllParentCategories();
 
   return (
     <Layout>
@@ -39,19 +40,11 @@ const Categories = () => {
           </div>
         </div>
         <div className="flex gap-4 w-full flex-wrap justify-around p-8">
-          {isCategoryLoading ? (
-            <div className="flex gap-4 w-full flex-wrap justify-evenly p-8">
-              <CategoryCardSkeleton />
-              <CategoryCardSkeleton />
-            </div>
+          {isParentCategoriesLoading ? (
+            <CategoryCardSkeleton />
           ) : (
-            categories?.map((category, index) => (
-              <CategoryCard
-              key={category._id}
-                id={category._id}
-                name={category.name}
-                index={index}
-              />
+            parentCategories.map((parentCategory, index) => (
+              <ParentCategoryCard key={index} data={parentCategory} />
             ))
           )}
         </div>

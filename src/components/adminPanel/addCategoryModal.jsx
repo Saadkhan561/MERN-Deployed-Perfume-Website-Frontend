@@ -6,7 +6,7 @@ import { ClipLoader } from "react-spinners";
 import useUserStore from "@/store/user";
 import Image from "next/image";
 import { X } from "lucide-react";
-import { useFetchParentCategories } from "@/hooks/query";
+import { useFetchAllParentCategories } from "@/hooks/query";
 
 const AddCagtegory = ({ refetchCategories }) => {
   const [category, setCategory] = useState("");
@@ -20,7 +20,7 @@ const AddCagtegory = ({ refetchCategories }) => {
   const role = currentUser?.user.role;
 
   const { data: parentCategories, isLoading: isParentCategoriesLoading } =
-    useFetchParentCategories();
+    useFetchAllParentCategories();
 
   const { mutate: addCategory, isPending: isAddCategoryPending } =
     useAddCategory({
@@ -70,8 +70,8 @@ const AddCagtegory = ({ refetchCategories }) => {
       setCategoryError("");
       setImgError("");
       setParentCategoryError(null);
-      setParentCategory('')
-      setParentId('')
+      setParentCategory("");
+      setParentId("");
       formData.append("category", category);
       formData.append("parentId", parentId);
       formData.append("parentCategory", parentCategory);
@@ -124,7 +124,7 @@ const AddCagtegory = ({ refetchCategories }) => {
             <option
               className="uppercase p-1 text-xs rounded-none cursor-pointer w-max"
               key={index}
-              value={category._id} 
+              value={category._id}
             >
               {category.name}
             </option>

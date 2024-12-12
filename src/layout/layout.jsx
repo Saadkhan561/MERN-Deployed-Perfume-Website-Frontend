@@ -6,7 +6,7 @@ import PaymentOption from "@/components/paymentOption";
 import SideBar from "@/components/common/side-bar";
 import Link from "next/link";
 import { Bounce, ToastContainer } from "react-toastify";
-import { useFetchAllCategories } from "@/hooks/query";
+import { useFetchAllCategories, useFetchAllParentCategories } from "@/hooks/query";
 import { ShoppingCart } from "lucide-react";
 import useCartStore from "@/store/cart";
 import Whatsapp from "@/icons/whatsapp";
@@ -35,7 +35,7 @@ const Layout = ({ children }) => {
 
   const router = useRouter();
 
-  const { data: categories } = useFetchAllCategories();
+  const { data: parentCategories } = useFetchAllParentCategories();
 
   const pathName = router.asPath.split("/");
 
@@ -104,7 +104,7 @@ const Layout = ({ children }) => {
               >
                 Categories
               </Link>
-              {categories?.map((category) => (
+              {parentCategories?.map((category) => (
                 <Link
                   key={category._id}
                   href={`/products?id=${category._id}`}

@@ -7,18 +7,26 @@ import { useEffect } from "react";
 import Image from "next/image";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { useFetchAllCategories, useFetchTrendingProducts } from "@/hooks/query";
+import {
+  useFetchAllCategories,
+  useFetchAllParentCategories,
+  useFetchTrendingProducts,
+} from "@/hooks/query";
 import ServiceCard from "@/components/cards/service-card";
 import { settings } from "../../carouselConfig";
-import CategoryCard from "@/components/cards/categoryCard";
+// import CategoryCard from "@/components/cards/categoryCard";
 import { ProductCardSkeleton } from "@/components/loadingSkeletons/productCardSkeleton";
 import CategoryCardSkeleton from "@/components/loadingSkeletons/categoryCardSkeleton";
 import Meta from "@/components/metaTags/meta";
 import SliderImageCard from "@/components/cards/sliderImageCard";
+import ParentCategoryCard from "@/components/cards/parentCategoryCard";
 
 export default function Home() {
-  const { data: categories, isLoading: isCategoryLoading } =
-    useFetchAllCategories();
+  // const { data: categories, isLoading: isCategoryLoading } =
+  //   useFetchAllCategories();
+
+  const { data: parentCategories, isLoading: isParentCategoriesLoading } =
+    useFetchAllParentCategories();
 
   const { data: trendingProducts, isLoading: trendingProductsLoading } =
     useFetchTrendingProducts();
@@ -112,57 +120,15 @@ export default function Home() {
             </div>
             {/* PRODUCTS DIV */}
             <div className="flex flex-col items-center  gap-3 w-full">
-              <div className="flex w-full justify-around flex-wrap">
-                {isCategoryLoading ? (
-                  <div className="flex w-full justify-evenly flex-wrap">
-                    <CategoryCardSkeleton />
-                    <CategoryCardSkeleton />
-                  </div>
-                ) : (
-                  categories?.map((category, index) => (
-                    <CategoryCard
-                      key={category._id}
-                      id={category._id}
-                      name={category.name}
-                      index={index}
-                    />
-                  ))
-                )}
-              </div>
-              {/* <div className="flex gap-2">
-                  {categories?.map((category, index) => (
-                    <p
-                      key={index}
-                      onClick={() => setSelected(index)}
-                      className={
-                        selected == index
-                          ? "p-1 border border-slate-800 cursor-pointer bg-slate-800 text-white duration-100 text-center rounded-lg"
-                          : "p-1 border border-slate-800 cursor-pointer text-slate-800 hover:bg-slate-800 hover:text-white duration-100 text-center rounded-lg"
-                      }
-                    >
-                      {category.name}
-                    </p>
-                  ))}
-                </div> */}
+              {/* PARENT CATEGORIES DIV */}
+              {isParentCategoriesLoading ? (
+                <CategoryCardSkeleton />
+              ) : (
+                parentCategories.map((parentCategory, index) => (
+                  <ParentCategoryCard key={index} data={parentCategory} />
+                ))
+              )}
             </div>
-            {/* <div className="flex flex-wrap mob_display:justify-center mob_display_product:flex-col mob_display_product:items-center gap-4 mt-6">
-                {isProductsLoading ? (
-                  <div>Loading...</div>
-                ) : (
-                  products &&
-                  categories &&
-                  products
-                    .find((product) => product._id === categories[selected]._id)
-                    ?.products.map((item) => (
-                      <Card
-                        key={item._id}
-                        id={item._id}
-                        product={item}
-                        category={categories[selected].name}
-                      />
-                    ))
-                )}
-              </div> */}
             {/* REVIEWS DIV */}
             {/* <div className="flex flex-col items-center gap-10">
               <p className="text-4xl mob_display:text-2xl">

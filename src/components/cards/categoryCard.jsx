@@ -4,9 +4,10 @@ import { categoryImages } from "../../../categoryImages";
 import { useRouter } from "next/navigation";
 import { useFetchCategoryImages } from "@/hooks/query";
 
-const CategoryCard = ({ name, index, id }) => {
+const CategoryCard = ({ name, parentCategory, id }) => {
   const { data } = useFetchCategoryImages({
     category: name,
+    parentCategory
   });
 
   const router = useRouter();

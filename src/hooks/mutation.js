@@ -1,12 +1,22 @@
-import { addCategory, deleteCategory, udpateCategory } from "@/services/categoryService";
+import {
+  addCategory,
+  deleteCategory,
+  udpateCategory,
+} from "@/services/categoryService";
 import { changeOrderStatus, sendEmail } from "@/services/orderService";
+import { updateParentCategory } from "@/services/parentCategoryServive";
 import {
   addProduct,
   editProduct,
   paymenyHook,
   placeOrder,
 } from "@/services/productService";
-import { addAddress, loginUser, resetPassword, signupUser } from "@/services/userService";
+import {
+  addAddress,
+  loginUser,
+  resetPassword,
+  signupUser,
+} from "@/services/userService";
 import { useMutation } from "@tanstack/react-query";
 
 export const useLoginMutation = (options) => {
@@ -47,9 +57,9 @@ export const useAddProduct = (options) => {
 export const useEditProduct = (options) => {
   return useMutation({
     mutationFn: editProduct,
-    ...options
-  })
-}
+    ...options,
+  });
+};
 
 export const useChangeOrderStatus = (options) => {
   return useMutation({
@@ -68,34 +78,41 @@ export const useResetPassword = (options) => {
 export const useAddAddress = (options) => {
   return useMutation({
     mutationFn: addAddress,
-    ...options
-  })
-}
+    ...options,
+  });
+};
 
 export const useAddCategory = (options) => {
   return useMutation({
     mutationFn: addCategory,
-    ...options
-  })
-}
+    ...options,
+  });
+};
 
-export const useDeleteCategory = ( options) =>{ 
+export const useDeleteCategory = (options) => {
   return useMutation({
     mutationFn: deleteCategory,
-    ...options
-  })
-}
+    ...options,
+  });
+};
 
 export const useUpdateCategory = (options) => {
   return useMutation({
     mutationFn: udpateCategory,
-    ...options
-  })
-}
+    ...options,
+  });
+};
 
-export const useSendEmail =(options) => {
+export const useUpdateParentCategory = (options) => {
+  return useMutation({
+    mutationFn: updateParentCategory,
+    ...options,
+  });
+};
+
+export const useSendEmail = (options) => {
   return useMutation({
     mutationFn: sendEmail,
-    ...options
-  })
-}
+    ...options,
+  });
+};

@@ -11,6 +11,7 @@ const CategoryCard = ({ name, parentCategory, id }) => {
   });
 
   const router = useRouter();
+  console.log(parentCategory)
   return (
     <div
       onClick={() => router.push(`/products?id=${id}`)}

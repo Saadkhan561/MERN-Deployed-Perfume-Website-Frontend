@@ -11,7 +11,6 @@ export const addCategory = async (data) => {
 };
 
 export const deleteCategory = async (data) => {
-  console.log(data);
   try {
     const res = await axiosInstance.post(`/deleteCategory/${data.id}`, data);
     return res.data;

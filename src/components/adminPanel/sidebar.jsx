@@ -1,7 +1,13 @@
 "use client";
 
 import useUserStore from "@/store/user";
-import { ChartBarStacked, LayoutDashboard, ListCollapse, LogOut, ShoppingCart } from "lucide-react";
+import {
+  ChartBarStacked,
+  LayoutDashboard,
+  ListCollapse,
+  LogOut,
+  ShoppingCart,
+} from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
@@ -60,13 +66,25 @@ const Sidebar = () => {
         <Link href={"/admin/categories"}>
           <li
             className={`sidebar_li   ${
-              pathName.includes("categories") && pathName.includes("categories")
+              pathName.includes("admin") && pathName.includes("categories")
                 ? "text-blue-600"
                 : ""
             }`}
           >
-           <ChartBarStacked className="h-5 w-5" />
+            <ChartBarStacked className="h-5 w-5" />
             <p>Categories</p>
+          </li>
+        </Link>
+        <Link href={"/admin/sub_categories"}>
+          <li
+            className={`sidebar_li   ${
+              pathName.includes("admin") && pathName.includes("sub_categories")
+                ? "text-blue-600"
+                : ""
+            }`}
+          >
+            <ChartBarStacked className="h-5 w-5" />
+            <p>Sub Categories</p>
           </li>
         </Link>
         <div onClick={handleLogout} className="sidebar_li text-red-500">

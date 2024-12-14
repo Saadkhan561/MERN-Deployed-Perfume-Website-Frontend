@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import AdminLayout from "./layout";
 
 import {
@@ -9,63 +10,65 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useFetchAllCategories } from "@/hooks/query";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import AddCagtegory from "@/components/adminPanel/addCategoryModal";
-import { useDeleteCategory, useUpdateCategory } from "@/hooks/mutation";
-import { ClipLoader } from "react-spinners";
-import useUserStore from "@/store/user";
-import { toast } from "react-toastify";
 import Meta from "@/components/metaTags/meta";
-import EditCategoryModal from "@/components/adminPanel/editCategoryModal";
+import { ClipLoader } from "react-spinners";
+import { useFetchAllParentCategories } from "@/hooks/query";
+import { useUpdateParentCategory } from "@/hooks/mutation";
+import { toast } from "react-toastify";
+import useUserStore from "@/store/user";
 import { useRouter } from "next/router";
-import DeleteCategoryModal from "@/components/adminPanel/deleteCategoryModal";
 
 const Categories = () => {
   const [isEdit, setIsEdit] = useState(false);
   const [categoryId, setCategoryId] = useState(null);
-  const [isDelete, setIsDelete] = useState(false);
 
   const [categoryInput, setCategoryInput] = useState("");
   const [categoryError, setCategoryError] = useState("");
-
   const { currentUser } = useUserStore();
   const role = currentUser?.user.role;
+
+  const router = useRouter()
   const {
-    data: categories,
-    isLoading: isCategoriesLoading,
-    refetch: refetchCategories,
-  } = useFetchAllCategories();
+    data: parentCategories,
+    refetch: refetchParentCategories,
+    isLoading: isParentCategoriesLoading,
+  } = useFetchAllParentCategories();
 
-  const { mutate: updateCategory, isPending: isUpdateCategoryPending } =
-    useUpdateCategory({
-      onSuccess(data) {
-        console.log(data);
-        toast.success(data.message);
-        setIsEdit(!isEdit);
-        refetchCategories();
-      },
-      onError(err) {
-        toast.error(err);
-      },
-    });
+  const {
+    mutate: updateParentCategory,
+    isPending: isUpdateParentCategoryPending,
+  } = useUpdateParentCategory({
+    onSuccess(data) {
+      toast.success(data.message);
+      setIsEdit(!isEdit);
+      refetchParentCategories();
+      setCategoryId(null);
+    },
+    onError(err) {
+      toast.error(err);
+    },
+  });
 
-  const handleEditCategory = (categoryId) => {
+  const handleEditCategory = (categoryId, parentCategory) => {
     if (categoryInput === "") {
       setCategoryError("Field must not be empty!");
     } else {
-      updateCategory({ role: role, id: categoryId, name: categoryInput });
+      updateParentCategory({
+        role: role,
+        id: categoryId,
+        name: categoryInput,
+        parentCategory: parentCategory,
+      });
       setCategoryError("");
     }
   };
 
-  const router = useRouter();
-
   return (
     <AdminLayout>
       <Meta
-        title="Admin Categories - Perfume Shop"
-        description="Manage product categories for the Perfume Shop."
+        title="Admin Sub Categories - Perfume Shop"
+        description="Manage product sub categories for the Perfume Shop."
       />
       <div className="p-4 bg-slate-200 h-full">
         <div className="bg-white rounded-lg p-4">
@@ -77,25 +80,24 @@ const Categories = () => {
                   Add Category
                 </button>
               </DialogTrigger>
-              <AddCagtegory refetchCategories={refetchCategories} />
+              {/* <AddCagtegory refetchCategories={refetchCategories} /> */}
             </Dialog>
           </div>
           <Table className="mt-5 table-fixed w-full">
             <TableHeader>
               <TableRow>
                 <TableHead>Name</TableHead>
-                <TableHead>Parent Category</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {isCategoriesLoading ? (
+              {isParentCategoriesLoading ? (
                 <TableRow>
                   <TableCell colSpan={10} className="text-center p-4 text-lg">
                     Loading...
                   </TableCell>
                 </TableRow>
               ) : (
-                categories?.map((category) => (
+                parentCategories?.map((category) => (
                   <TableRow key={category._id}>
                     <TableCell>
                       {isEdit && categoryId === category._id ? (
@@ -125,27 +127,17 @@ const Categories = () => {
                     <TableCell>{category.parentCategoryName}</TableCell>
                     <TableCell>
                       <div className="flex gap-2 items-center">
-                        {/* <Dialog>
-                          <DialogTrigger asChild>
-                            <button className="border-2 p-1 rounded-lg w-20 font-semibold">
-                              Edit
-                            </button>
-                          </DialogTrigger>
-                          <DialogContent>
-                            <EditCategoryModal />
-                          </DialogContent>
-                        </Dialog> */}
                         <button
                           onClick={() => {
                             if (isEdit) {
-                              handleEditCategory(category._id);
+                              handleEditCategory(category._id, category.name);
                             } else {
                               setIsEdit(!isEdit);
                               setCategoryId(category._id);
                             }
                           }}
                           disabled={
-                            isUpdateCategoryPending &&
+                            isUpdateParentCategoryPending &&
                             isEdit &&
                             categoryId === category._id
                           }
@@ -157,7 +149,7 @@ const Categories = () => {
                         >
                           {isEdit &&
                           categoryId === category._id &&
-                          isUpdateCategoryPending ? (
+                          isUpdateParentCategoryPending ? (
                             <div className="flex justify-center">
                               <ClipLoader size={15} color="black" />
                             </div>
@@ -180,7 +172,7 @@ const Categories = () => {
                             <button
                               onClick={() =>
                                 router.push(
-                                  `?id=${category._id}&name=${category.name}&parent=${category.parentCategoryName}`
+                                  `?id=${category._id}&name=${category.name}`
                                 )
                               }
                               className="bg-red-700 text-white p-1 rounded-lg w-20"
@@ -189,119 +181,13 @@ const Categories = () => {
                             </button>
                           </DialogTrigger>
                           <DialogContent className="flex flex-col gap-2 font-sans pt-10">
-                            <DeleteCategoryModal
+                            {/* <DeleteCategoryModal
                               refetchCategories={refetchCategories}
-                            />
+                            /> */}
                           </DialogContent>
                         </Dialog>
                       </div>
                     </TableCell>
-                    {/* <TableCell>
-                      <div className="flex gap-2">
-                        <button
-                          onClick={() => {
-                            if (isEdit) {
-                              handleEditCategory(category._id);
-                            } else {
-                              setIsEdit(!isEdit);
-                              setCategoryId(category._id);
-                            }
-                          }}
-                          disabled={
-                            isUpdateCategoryPending &&
-                            isEdit &&
-                            categoryId === category._id
-                          }
-                          className={`text-sm p-1 rounded-lg text-center w-16 ${
-                            isEdit && categoryId === category._id
-                              ? "bg-white text-black border-2 border-slate-200"
-                              : "bg-blue-700 text-white"
-                          }`}
-                        >
-                          {isEdit &&
-                          categoryId === category._id &&
-                          isUpdateCategoryPending ? (
-                            <div className="flex justify-center">
-                              <ClipLoader size={15} color="black" />
-                            </div>
-                          ) : isEdit && categoryId === category._id ? (
-                            "Done"
-                          ) : (
-                            "Edit"
-                          )}
-                        </button>
-                        {isEdit && categoryId === category._id && (
-                          <button
-                            onClick={() => setIsEdit(!isEdit)}
-                            className="text-sm p-1 rounded-lg text-center w-16 bg-white text-black border-2 border-slate-200"
-                          >
-                            Cancel
-                          </button>
-                        )}
-                        <Dialog>
-                          <DialogTrigger asChild>
-                            <button
-                              className={`text-sm p-1 rounded-lg text-center w-16 ${
-                                isEdit && categoryId === category._id
-                                  ? "hidden"
-                                  : "bg-red-700 text-white"
-                              } `}
-                              onClick={() => {
-                                setCategoryId(category._id);
-                              }}
-                            >
-                              {isDeleteCategoryPending &&
-                              categoryId === category._id ? (
-                                <div className="flex justify-center">
-                                  {" "}
-                                  <ClipLoader size={15} color="white" />
-                                </div>
-                              ) : (
-                                "Delete"
-                              )}
-                            </button>
-                          </DialogTrigger>
-                          <DialogContent className="flex flex-col gap-2 font-sans pt-10">
-                            <p className="text-center text-xl font-semibold">
-                              Do you want to delete this category?
-                            </p>
-                            <button
-                              onClick={() =>
-                                deleteCategory({
-                                  id: category._id,
-                                  role: role,
-                                  category: category.name,
-                                })
-                              }
-                              type="button"
-                              className={`bg-red-700 text-white p-1 rounded-lg ${
-                                isDeleteCategoryPending &&
-                                categoryId === category._id
-                                  ? "opacity-50 duration-200"
-                                  : ""
-                              }`}
-                            >
-                              {isDeleteCategoryPending &&
-                              categoryId === category._id ? (
-                                <div className="flex justify-center">
-                                  {" "}
-                                  <ClipLoader size={15} color="white" />
-                                </div>
-                              ) : (
-                                "Delete"
-                              )}
-                            </button>
-                            <button
-                              type="button"
-                              onClick={() => setIsDelete(!isDelete)}
-                              className="bg-black text-white p-1 rounded-lg"
-                            >
-                              Cancel
-                            </button>
-                          </DialogContent>
-                        </Dialog>
-                      </div>
-                    </TableCell> */}
                   </TableRow>
                 ))
               )}

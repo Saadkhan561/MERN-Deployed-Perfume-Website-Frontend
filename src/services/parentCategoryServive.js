@@ -8,3 +8,12 @@ export const fetchAllParentCategories = async () => {
     throw new Error(error.message);
   }
 };
+
+export const updateParentCategory = async (data) => {
+  try {
+    const res = await axiosInstance.put("/updateParentCategory", data);
+    return res.data;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};

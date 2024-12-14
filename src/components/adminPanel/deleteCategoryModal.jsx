@@ -5,7 +5,7 @@ import React from "react";
 import { ClipLoader } from "react-spinners";
 import { toast } from "react-toastify";
 
-const DeleteCategoryModal = ({refetchCategories}) => {
+const DeleteCategoryModal = ({ refetchCategories }) => {
   const { currentUser } = useUserStore();
   const role = currentUser?.user.role;
   const router = useRouter();
@@ -26,6 +26,9 @@ const DeleteCategoryModal = ({refetchCategories}) => {
     <div className="flex flex-col gap-2">
       <p className="text-center text-xl font-semibold">
         Do you want to delete this category?
+      </p>
+      <p className="text-center text-xl font-semibold">
+        All of the products for this category will also be deleted!
       </p>
       <button
         onClick={() =>

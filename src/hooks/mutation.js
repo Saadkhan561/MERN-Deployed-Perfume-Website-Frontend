@@ -4,7 +4,11 @@ import {
   udpateCategory,
 } from "@/services/categoryService";
 import { changeOrderStatus, sendEmail } from "@/services/orderService";
-import { updateParentCategory } from "@/services/parentCategoryServive";
+import {
+  addParentCategory,
+  deleteParentCategory,
+  updateParentCategory,
+} from "@/services/parentCategoryServive";
 import {
   addProduct,
   editProduct,
@@ -103,9 +107,23 @@ export const useUpdateCategory = (options) => {
   });
 };
 
+export const useAddParentCategory = (options) => {
+  return useMutation({
+    mutationFn: addParentCategory,
+    ...options,
+  });
+};
+
 export const useUpdateParentCategory = (options) => {
   return useMutation({
     mutationFn: updateParentCategory,
+    ...options,
+  });
+};
+
+export const useDeleteParentCategory = (options) => {
+  return useMutation({
+    mutationFn: deleteParentCategory,
     ...options,
   });
 };

@@ -10,6 +10,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import Meta from "@/components/metaTags/meta";
 import { ClipLoader } from "react-spinners";
@@ -18,6 +19,8 @@ import { useUpdateParentCategory } from "@/hooks/mutation";
 import { toast } from "react-toastify";
 import useUserStore from "@/store/user";
 import { useRouter } from "next/router";
+import AddParentCategoryModal from "@/components/adminPanel/addParentCategoryModal";
+import DeleteParentCategoryModal from "@/components/adminPanel/deleteParentCategoryModal";
 
 const Categories = () => {
   const [isEdit, setIsEdit] = useState(false);
@@ -28,7 +31,7 @@ const Categories = () => {
   const { currentUser } = useUserStore();
   const role = currentUser?.user.role;
 
-  const router = useRouter()
+  const router = useRouter();
   const {
     data: parentCategories,
     refetch: refetchParentCategories,
@@ -64,6 +67,13 @@ const Categories = () => {
     }
   };
 
+  const handleClose = () => {
+    const { id, name, ...rest } = router.query;
+    router.push({ pathname: router.pathname, query: rest }, undefined, {
+      shallow: true,
+    });
+  };
+
   return (
     <AdminLayout>
       <Meta
@@ -80,7 +90,11 @@ const Categories = () => {
                   Add Category
                 </button>
               </DialogTrigger>
-              {/* <AddCagtegory refetchCategories={refetchCategories} /> */}
+              <DialogContent>
+                <AddParentCategoryModal
+                  refetchParentCategories={refetchParentCategories}
+                />
+              </DialogContent>
             </Dialog>
           </div>
           <Table className="mt-5 table-fixed w-full">
@@ -167,7 +181,7 @@ const Categories = () => {
                             Cancel
                           </button>
                         )}
-                        <Dialog>
+                        <Dialog onOpenChange={handleClose}>
                           <DialogTrigger asChild>
                             <button
                               onClick={() =>
@@ -180,10 +194,11 @@ const Categories = () => {
                               Delete
                             </button>
                           </DialogTrigger>
-                          <DialogContent className="flex flex-col gap-2 font-sans pt-10">
-                            {/* <DeleteCategoryModal
-                              refetchCategories={refetchCategories}
-                            /> */}
+                          <DialogContent className="flex flex-col gap-2 font-sans rounded-lg pt-10 lg:w-1/4 sm:w-2/4 w-4/5">
+                            <DeleteParentCategoryModal
+                              refetchParentCategories={refetchParentCategories}
+                              handleClose={handleClose}
+                            />
                           </DialogContent>
                         </Dialog>
                       </div>

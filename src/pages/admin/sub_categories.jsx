@@ -10,7 +10,12 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useFetchAllCategories } from "@/hooks/query";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogOverlay,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import AddCagtegory from "@/components/adminPanel/addCategoryModal";
 import { useDeleteCategory, useUpdateCategory } from "@/hooks/mutation";
 import { ClipLoader } from "react-spinners";
@@ -62,6 +67,13 @@ const SubCategories = () => {
       });
       setCategoryError("");
     }
+  };
+
+  const handleClose = () => {
+    const { id, name, parent, ...rest } = router.query;
+    router.push({ pathname: router.pathname, query: rest }, undefined, {
+      shallow: true,
+    });
   };
 
   const router = useRouter();
@@ -178,7 +190,7 @@ const SubCategories = () => {
                           </button>
                         )}
                         {categoryId !== category._id && (
-                          <Dialog>
+                          <Dialog onOpenChange={handleClose}>
                             <DialogTrigger asChild>
                               <button
                                 onClick={() =>
@@ -191,9 +203,10 @@ const SubCategories = () => {
                                 Delete
                               </button>
                             </DialogTrigger>
-                            <DialogContent className="flex flex-col gap-2 font-sans pt-10">
+                            <DialogContent className="flex flex-col gap-2 font-sans pt-10 rounded-lg lg:w-1/4 sm:w-2/4 w-4/5">
                               <DeleteCategoryModal
                                 refetchCategories={refetchCategories}
+                                handleClose={handleClose}
                               />
                             </DialogContent>
                           </Dialog>

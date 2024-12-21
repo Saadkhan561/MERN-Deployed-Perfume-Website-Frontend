@@ -4,7 +4,9 @@ import axiosInstance from "../../axiosConfig";
 
 export const fetchAllproducts = async (params) => {
   try {
-    const products = await axiosInstance.get(`/getProducts?categoryId=${params.categoryId}&skip=${params.skip}`);
+    const products = await axiosInstance.get(
+      `/getProducts?categoryId=${params.categoryId}&skip=${params.skip}`
+    );
     return products.data;
   } catch (err) {
     throw new Error(err.message);
@@ -15,7 +17,9 @@ export const fetchNonFilteredProducts = async (params) => {
   try {
     if (params) {
       const products = await axiosInstance.get(
-        `/getAllProducts?category=${params.filter || ""}&skip=${params.skip}&searchTerm=${params.searchTerm}`
+        `/getAllProducts?category=${params.filter || ""}&skip=${
+          params.skip
+        }&searchTerm=${params.searchTerm}`
       );
       return products.data;
     } else {
@@ -28,7 +32,7 @@ export const fetchNonFilteredProducts = async (params) => {
 };
 
 export const addProduct = async (data) => {
-  console.log(data)
+  console.log(data);
   try {
     const res = await axiosInstance.post("/addProduct", data);
     return res.data;
@@ -87,20 +91,20 @@ export const fetchTrendingProducts = async () => {
 };
 
 // SINGLE FUNCTION FOR EDITING PRODUCT FIELDS
-export const editProduct = async(data) => {
+export const editProduct = async (data) => {
   try {
-    const res = await axiosInstance.put("/editProduct", data)
-    return res.data
-  } catch(err) {
-    throw new Error(err)
+    const res = await axiosInstance.put("/editProduct", data);
+    return res.data;
+  } catch (err) {
+    throw new Error(err);
   }
-} 
+};
 
 export const fetchProductImages = async (data) => {
   if (data) {
     try {
       const res = await axiosInstance.get(
-        `/images/${data.category}/${data.productName}`
+        `/images/${data.parentCategory}/${data.category}/${data.productName}`
       );
       return res.data;
     } catch (err) {

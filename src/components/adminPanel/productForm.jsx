@@ -7,10 +7,15 @@ import { productFormSchema } from "@/validationSchema/productFormSchema";
 import { Minus, Plus, Trash, X } from "lucide-react";
 import { useAddProduct } from "@/hooks/mutation";
 import { ClipLoader } from "react-spinners";
-import { useFetchAllCategories } from "@/hooks/query";
-import Image from 'next/image'
+import {
+  useFetchAllCategories,
+  useFetchAllParentCategories,
+  useFetchCategoriesByParentId,
+} from "@/hooks/query";
+import Image from "next/image";
 
 const ProductForm = () => {
+  const [parentId, setParentId] = useState(null);
   const [newCategory, setNewCategory] = useState(false);
   const [options, setOptions] = useState({});
   const [newOption, setNewOption] = useState({
@@ -21,8 +26,16 @@ const ProductForm = () => {
   const [optionError, setOptionError] = useState(null);
 
   // QUERY TO FETCH ALL CATEGORIES
+  // const { data: categories, isLoading: isCategoriesLoading } =
+  //   useFetchAllCategories();
+
+  // QUERY TO FETCH ALL PARENT CATEGORIES
+  const { data: parentCategories, isParentCategoriesLoading } =
+    useFetchAllParentCategories();
+
+  // QUERY TO FETCH CATEGORIES BY PARENT ID
   const { data: categories, isLoading: isCategoriesLoading } =
-    useFetchAllCategories();
+    useFetchCategoriesByParentId(parentId && parentId);
 
   const [images, setImages] = useState([]);
   const [imgError, setImgError] = useState(null);
@@ -89,6 +102,7 @@ const ProductForm = () => {
     const formData = new FormData();
     formData.append("name", data.name);
     formData.append("description", data.description);
+    formData.append("parentCategory", data.parentCategory);
     formData.append("category", data.category);
     formData.append("brand", data.brand);
     formData.append("options", JSON.stringify(options));
@@ -97,11 +111,12 @@ const ProductForm = () => {
     Array.from(images).forEach((image) => {
       formData.append("images", image);
     });
-    if (Object.entries(options).length === 0 ) {
-      setOptionError("Options required!")
+    if (Object.entries(options).length === 0) {
+      setOptionError("Options required!");
     } else {
-      addProduct(formData);
-      setOptionError(null)
+      console.log(data);
+      // addProduct(formData);
+      setOptionError(null);
     }
   };
 
@@ -150,7 +165,7 @@ const ProductForm = () => {
 
   const handleImageChange = (e) => {
     const selectedFiles = Array.from(e.target.files);
-    console.log(selectedFiles)
+    console.log(selectedFiles);
     // Validate the selected images before setting them in state
     if (validateImages(selectedFiles)) {
       if (images.length + selectedFiles.length > 5) {
@@ -239,33 +254,58 @@ const ProductForm = () => {
               <p className="text-red-500 text-xs">{errors.brand.message}</p>
             )}
           </div>
+          {/* Add parent category */}
           <div className="flex flex-col gap-2">
             <label
               className="text-sm register_mini_div:text-xs  text-slate-500 font-semibold"
               htmlFor="category"
             >
-              Enter category
+              Enter parent category
             </label>
             <select
-              {...register("category")}
-              className={`product_input uppercase ${
-                newCategory
-                  ? "opacity-50 duration-200 cursor-default"
-                  : "cursor-pointer "
-              }`}
-              disabled={newCategory}
+              {...register("parentCategory")}
+              className="product_input capitalize cursor-pointer"
+              onChange={(e) => {
+                const [selectedId, selectedName] = e.target.value.split("|");
+                setParentId(selectedId);
+              }}
             >
-              {categories?.map((category) => (
+              {parentCategories?.map((category) => (
                 <option
                   key={category._id}
-                  value={category.name}
-                  className="uppercase p-1 text-xs rounded-none rounded-t-none"
+                  // value={category.name}
+                  value={`${category._id}|${category.name}`}
+                  onClick={() => setParentId(category._id)}
+                  className=" p-1 text-xs rounded-none rounded-t-none"
                 >
                   {category.name}
                 </option>
               ))}
             </select>
-            <hr />
+          </div>
+          {parentId && categories?.length !== 0 ? (
+            <div className="flex flex-col gap-2">
+              <label
+                className="text-sm register_mini_div:text-xs  text-slate-500 font-semibold"
+                htmlFor="category"
+              >
+                Enter category
+              </label>
+              <select
+                {...register("category")}
+                className="product_input capitalize cursor-pointer"
+              >
+                {categories?.map((category) => (
+                  <option
+                    key={category._id}
+                    value={category.name}
+                    className=" p-1 text-xs rounded-none rounded-t-none"
+                  >
+                    {category.name}
+                  </option>
+                ))}
+              </select>
+              {/* <hr />
             <p className="text-center text-sm font-semibold">Or</p>
             <hr />
             <div className="flex gap-4 text-sm font-semibold">
@@ -295,8 +335,9 @@ const ProductForm = () => {
             )}
             {errors.category && (
               <p className="text-red-500 text-xs">{errors.category.message}</p>
-            )}
-          </div>
+            )} */}
+            </div>
+          ) : (<p className="font-semibold text-sm">No sub categories for this category...</p>)}
           <div className="flex flex-col gap-2">
             <label
               className="text-sm register_mini_div:text-xs  text-slate-500 font-semibold"

@@ -34,6 +34,7 @@ export default function Home() {
     AOS.init({});
   }, []);
 
+
   return (
     <Layout>
       <Meta
@@ -113,6 +114,9 @@ export default function Home() {
                       id={item._id}
                       product={item}
                       category={item.categoryDetails.name}
+                      parentCategory={
+                        item.categoryDetails.parentCategoryDetails.name
+                      }
                     />
                   ))
                 )}

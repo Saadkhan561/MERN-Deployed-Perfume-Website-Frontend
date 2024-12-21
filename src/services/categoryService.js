@@ -1,7 +1,6 @@
 import axiosInstance from "../../axiosConfig";
 
 export const addCategory = async (data) => {
-  console.log(data);
   try {
     const res = await axiosInstance.post("/addCategory", data);
     return res.data;

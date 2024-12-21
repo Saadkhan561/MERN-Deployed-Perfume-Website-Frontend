@@ -4,8 +4,9 @@ import { useRouter } from "next/router";
 import React from "react";
 import { ClipLoader } from "react-spinners";
 import { toast } from "react-toastify";
+import { DialogTrigger } from "../ui/dialog";
 
-const DeleteCategoryModal = ({ refetchCategories }) => {
+const DeleteCategoryModal = ({ refetchCategories, handleClose }) => {
   const { currentUser } = useUserStore();
   const role = currentUser?.user.role;
   const router = useRouter();
@@ -27,7 +28,7 @@ const DeleteCategoryModal = ({ refetchCategories }) => {
       <p className="text-center text-xl font-semibold">
         Do you want to delete this category?
       </p>
-      <p className="text-center text-xl font-semibold">
+      <p className="text-center text-sm font-semibold">
         All of the products for this category will also be deleted!
       </p>
       <button
@@ -53,12 +54,15 @@ const DeleteCategoryModal = ({ refetchCategories }) => {
           "Delete"
         )}
       </button>
-      <button
-        type="button"
-        className="bg-black text-white p-1 rounded-lg w-full"
-      >
-        Cancel
-      </button>
+      <DialogTrigger>
+        <button
+          onClick={handleClose}
+          type="button"
+          className="bg-black text-white p-1 rounded-lg w-full"
+        >
+          Cancel
+        </button>
+      </DialogTrigger>
     </div>
   );
 };

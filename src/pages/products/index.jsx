@@ -19,6 +19,8 @@ const Products = () => {
     skip: skip,
   });
 
+  console.log(category)
+
   return (
     <Layout>
       <Meta
@@ -75,6 +77,7 @@ const Products = () => {
                     id={item._id}
                     product={item}
                     category={category.name}
+                    parentCategory={category.parentCategory}
                   />
                 ))
               )}

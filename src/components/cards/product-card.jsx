@@ -3,10 +3,12 @@ import { useRouter } from "next/router";
 import { useFetchProductImages } from "@/hooks/query";
 import Image from "next/image";
 
-const Card = ({ product, category }) => {
+const Card = ({ product, category , parentCategory}) => {
+  console.log(parentCategory)
   const { data } = useFetchProductImages({
     category,
     productName: product.name,
+    parentCategory
   });
 
   const router = useRouter();

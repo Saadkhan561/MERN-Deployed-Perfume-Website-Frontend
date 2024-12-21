@@ -1,10 +1,17 @@
-import { fetchCategoryById, fetchCategoryImages } from "@/services/categoryService";
+import {
+  fetchCategoryById,
+  fetchCategoryImages,
+} from "@/services/categoryService";
 import {
   getOrders,
   getUserOrderById,
   getUserOrders,
 } from "@/services/orderService";
-import { fetchAllParentCategories, fetchParentCategories } from "@/services/parentCategoryServive";
+import {
+  fetchAllParentCategories,
+  fetchCategoriesByParentId,
+  fetchParentCategories,
+} from "@/services/parentCategoryServive";
 import {
   fetchAllCategories,
   fetchAllproducts,
@@ -60,19 +67,28 @@ export const useFetchAllCategories = (options) => {
 
 export const useFetchAllParentCategories = (options) => {
   return useQuery({
-    ...options, 
+    ...options,
     queryKey: ["parent_categories"],
-    queryFn: fetchAllParentCategories
-  })
-}
+    queryFn: fetchAllParentCategories,
+  });
+};
+
+export const useFetchCategoriesByParentId = (params, options) => {
+  console.log(params)
+  return useQuery({
+    ...options,
+    queryKey: ["categories_by_parent_id", params],
+    queryFn: () => fetchCategoriesByParentId(params),
+  });
+};
 
 export const useFetchCategoryById = (params, options) => {
   return useQuery({
     ...options,
     queryKey: ["category", params],
-    queryFn:() => fetchCategoryById(params)
-  })
-}
+    queryFn: () => fetchCategoryById(params),
+  });
+};
 
 export const useFetchProductById = (id, options) => {
   return useQuery({
@@ -85,7 +101,7 @@ export const useFetchProductById = (id, options) => {
 export const useFetchProductImages = (params, options) => {
   return useQuery({
     ...options,
-    queryKey: ["product_images", params.category, params.productName],
+    queryKey: ["product_images", params.category, params.productName, params.parentCategory],
     queryFn: () => fetchProductImages(params),
   });
 };
@@ -125,7 +141,7 @@ export const useGetUserOrderById = (params, options) => {
 export const useFetchCategoryImages = (params, options) => {
   return useQuery({
     ...options,
-    queryKey: ['categoryImage', params],
-    queryFn: () => fetchCategoryImages(params)
-  })
-}
+    queryKey: ["categoryImage", params],
+    queryFn: () => fetchCategoryImages(params),
+  });
+};

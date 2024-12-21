@@ -74,11 +74,11 @@ export const useFetchAllParentCategories = (options) => {
 };
 
 export const useFetchCategoriesByParentId = (params, options) => {
-  console.log(params)
   return useQuery({
     ...options,
     queryKey: ["categories_by_parent_id", params],
     queryFn: () => fetchCategoriesByParentId(params),
+    enabled: Boolean(params)
   });
 };
 

@@ -3,8 +3,15 @@ import * as yup from "yup";
 export const productFormSchema = yup.object({
   name: yup.string().required("Name is required"),
   description: yup.string().required("Description is required"),
-  category: yup.string().required("Category is required"),
+  category: yup
+    .string()
+    .notOneOf(["default"], "Category is required")
+    .required("Category is required"),
   brand: yup.string().required("Brand is required"),
+  parentCategory: yup
+    .string()
+    .notOneOf(["default"], "Parent category is required")
+    .required("Parent category is required"),
   // images: yup.mixed()
   //   .test(
   //     "required",

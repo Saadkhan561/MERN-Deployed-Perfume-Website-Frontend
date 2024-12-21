@@ -35,7 +35,7 @@ const ProductForm = () => {
 
   // QUERY TO FETCH CATEGORIES BY PARENT ID
   const { data: categories, isLoading: isCategoriesLoading } =
-    useFetchCategoriesByParentId(parentId && parentId);
+    useFetchCategoriesByParentId(parentId);
 
   const [images, setImages] = useState([]);
   const [imgError, setImgError] = useState(null);
@@ -91,7 +91,6 @@ const ProductForm = () => {
     resolver: yupResolver(productFormSchema),
   });
   const onSubmit = (data) => {
-    console.log(data);
     if (images.length === 0) {
       setImgError("Please upload at least one image");
       return;
@@ -102,7 +101,7 @@ const ProductForm = () => {
     const formData = new FormData();
     formData.append("name", data.name);
     formData.append("description", data.description);
-    formData.append("parentCategory", data.parentCategory);
+    formData.append("parentCategory", data.parentCategory.split("|")[1]);
     formData.append("category", data.category);
     formData.append("brand", data.brand);
     formData.append("options", JSON.stringify(options));
@@ -114,8 +113,7 @@ const ProductForm = () => {
     if (Object.entries(options).length === 0) {
       setOptionError("Options required!");
     } else {
-      console.log(data);
-      // addProduct(formData);
+      addProduct(formData);
       setOptionError(null);
     }
   };
@@ -165,7 +163,6 @@ const ProductForm = () => {
 
   const handleImageChange = (e) => {
     const selectedFiles = Array.from(e.target.files);
-    console.log(selectedFiles);
     // Validate the selected images before setting them in state
     if (validateImages(selectedFiles)) {
       if (images.length + selectedFiles.length > 5) {
@@ -212,6 +209,8 @@ const ProductForm = () => {
     setNewCategory(!newCategory);
     setValue(category, "");
   };
+
+  console.log(errors);
 
   return (
     <div className="bg-white p-4 font-sans">
@@ -264,24 +263,32 @@ const ProductForm = () => {
             </label>
             <select
               {...register("parentCategory")}
-              className="product_input capitalize cursor-pointer"
+              className="product_input capitalize cursor-pointer text-sm"
               onChange={(e) => {
                 const [selectedId, selectedName] = e.target.value.split("|");
                 setParentId(selectedId);
               }}
+              defaultValue="default"
             >
+              <option value="default" disabled hidden>
+                Select parent category
+              </option>
               {parentCategories?.map((category) => (
                 <option
                   key={category._id}
                   // value={category.name}
                   value={`${category._id}|${category.name}`}
-                  onClick={() => setParentId(category._id)}
-                  className=" p-1 text-xs rounded-none rounded-t-none"
+                  className=" p-1 text-sm"
                 >
                   {category.name}
                 </option>
               ))}
             </select>
+            {errors.parentCategory && (
+              <p className="text-red-500 text-xs">
+                {errors.parentCategory.message}
+              </p>
+            )}
           </div>
           {parentId && categories?.length !== 0 ? (
             <div className="flex flex-col gap-2">
@@ -294,7 +301,11 @@ const ProductForm = () => {
               <select
                 {...register("category")}
                 className="product_input capitalize cursor-pointer"
+                defaultValue="default"
               >
+                <option value="default" disabled hidden>
+                  Select sub category
+                </option>
                 {categories?.map((category) => (
                   <option
                     key={category._id}
@@ -333,11 +344,18 @@ const ProductForm = () => {
                 />
               </div>
             )}
-            {errors.category && (
-              <p className="text-red-500 text-xs">{errors.category.message}</p>
-            )} */}
+              */}
+              {errors.category && (
+                <p className="text-red-500 text-xs">
+                  {errors.category.message}
+                </p>
+              )}
             </div>
-          ) : (<p className="font-semibold text-sm">No sub categories for this category...</p>)}
+          ) : (
+            <p className="font-semibold text-sm">
+              No sub categories for this category...
+            </p>
+          )}
           <div className="flex flex-col gap-2">
             <label
               className="text-sm register_mini_div:text-xs  text-slate-500 font-semibold"

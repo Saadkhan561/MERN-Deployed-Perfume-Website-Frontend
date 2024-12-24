@@ -4,9 +4,9 @@ import CategoryCard from "./categoryCard";
 const ParentCategoryCard = ({ data }) => {
   console.log(data);
   return (
-    <div className="w-full p-4 flex flex-col gap-4">
+    <div className="w-full p-4 flex flex-col items-center gap-4">
       <p className="text-center text-4xl mob_display:text-2xl">{data?.name}</p>
-      <div className="flex w-full justify-around flex-wrap">
+      <div className="grid lg:grid-cols-2 lg:gap-8 gap-4 grid-cols-1">
         {data?.subCategories?.map((category, index) => (
           <CategoryCard
             key={category._id}
@@ -22,3 +22,5 @@ const ParentCategoryCard = ({ data }) => {
 };
 
 export default ParentCategoryCard;
+
+//flex w-full justify-evenly flex-wrap

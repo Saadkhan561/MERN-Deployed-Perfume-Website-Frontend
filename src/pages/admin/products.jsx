@@ -145,7 +145,7 @@ const Products = () => {
                     Add Product
                   </button>
                 </DialogTrigger>
-                <DialogContent className="max-w-[1000px] h-max">
+                <DialogContent className="max-w-[1000px] h-[95%] overflow-y-auto">
                   <DialogTitle className="text-2xl font-sans">
                     Add product form
                   </DialogTitle>
@@ -281,7 +281,7 @@ const Products = () => {
                 <ChevronLeft
                   onClick={() => {
                     if (skip > 0) {
-                      setSkip(skip - 2);
+                      setSkip(skip - 10);
                     }
                   }}
                   className=" border border-slate-300 cursor-pointer hover:bg-slate-200 duration-200 h-5 w-5"
@@ -298,7 +298,7 @@ const Products = () => {
                 <ChevronLeft
                   onClick={() => {
                     if (products.currentPage < products.totalPages) {
-                      setSkip(skip + 2);
+                      setSkip(skip + 10);
                     }
                   }}
                   className=" border border-slate-300 cursor-pointer hover:bg-slate-200 duration-200 h-5 w-5 rotate-180"

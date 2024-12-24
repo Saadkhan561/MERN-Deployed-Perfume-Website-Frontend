@@ -19,7 +19,7 @@ const Products = () => {
     skip: skip,
   });
 
-  console.log(category)
+  console.log(category);
 
   return (
     <Layout>
@@ -40,7 +40,7 @@ const Products = () => {
             <div className="flex flex-col gap-2 h-full text-white items-center justify-center">
               <p className="text-5xl font-semibold">Products</p>
               <div className="flex items-center gap-2">
-                <Link className="hover:underliner" href="/">
+                <Link className="hover:underline" href="/">
                   Home
                 </Link>
                 <p>&gt;</p>
@@ -76,8 +76,10 @@ const Products = () => {
                     key={item._id}
                     id={item._id}
                     product={item}
-                    category={category.name}
-                    parentCategory={category.parentCategory}
+                    category={item.categoryDetails.name}
+                    parentCategory={
+                      item.categoryDetails.parentCategoryDetails.name
+                    }
                   />
                 ))
               )}

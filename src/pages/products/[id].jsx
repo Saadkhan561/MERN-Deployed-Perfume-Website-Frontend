@@ -1,5 +1,5 @@
 import Layout from "@/layout/layout";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import Card from "@/components/cards/product-card";
@@ -24,14 +24,20 @@ import Meta from "@/components/metaTags/meta";
 
 const ProductDetails = () => {
   const [counter, setCounter] = useState(1);
-  const [amount, setAmount] = useState(50);
   const [skip, setSkip] = useState(0);
+  const [amount, setAmount] = useState(null);
   const [incMsg, setIncMsg] = useState(null);
   const router = useRouter();
 
   const id = router.query.id;
   const { data: product, isLoading: isProductLoading } =
     useFetchProductById(id);
+
+  useEffect(() => {
+    if (product) {
+      setAmount(Object.keys(product?.options)[0]);
+    }
+  }, [product]);
 
   const categoryId = product?.category;
   const { data: products, isLoading: isProductsLoading } = useFetchAllProducts(
@@ -44,6 +50,7 @@ const ProductDetails = () => {
   );
   const { data: productImages } = useFetchProductImages({
     category: product?.categoryDetails.name,
+    parentCategory: product?.categoryDetails?.parentCategoryDetails?.name,
     productName: product?.name,
   });
 
@@ -146,31 +153,41 @@ const ProductDetails = () => {
       {isProductLoading ? (
         <ProductDetailsSkeleton />
       ) : (
-        <div className="w-11/12 mob_display:w-full flex flex-col items-center gap-28 h-full">
-          <div className="flex flex-col items-center mt-8 duration-200">
+        <div className="w-11/12 mob_display:w-full flex flex-col gap-28 h-full">
+          <div className="flex flex-col mt-8 duration-200">
             {/* DETAILS DIV */}
             <div className="flex items-center gap-4 mob_display:flex-col mob_display_product:gap-6">
               <div className="w-full">
                 <div className="flex justify-center  mob_display:pt-0 w-full">
-                  <Slider
-                    className="w-[500px] h-[500px] mob_display:h-[250px] mob_display:w-[250px]"
-                    {...settings}
-                  >
-                    {productImages?.map((base64Image, index) => (
-                      <Image
-                        key={index}
-                        className="aspect-square object-contain"
-                        src={`data:image/jpeg;base64,${base64Image}`}
-                        alt={`Product Image ${index + 1}`}
-                        height={500}
-                        width={500}
-                      />
-                    ))}
-                  </Slider>
+                  {productImages?.length === 1 ? (
+                    <Image
+                      className="aspect-square object-contain"
+                      src={`data:image/jpeg;base64,${productImages}`}
+                      alt={`Product Image 1`}
+                      height={400}
+                      width={400}
+                    />
+                  ) : (
+                    <Slider
+                      className="w-[400px] h-[400px] mob_display:h-[250px] mob_display:w-[250px]"
+                      {...settings}
+                    >
+                      {productImages?.map((base64Image, index) => (
+                        <Image
+                          key={index}
+                          className="aspect-square object-contain"
+                          src={`data:image/jpeg;base64,${base64Image}`}
+                          alt={`Product Image ${index + 1}`}
+                          height={400}
+                          width={400}
+                        />
+                      ))}
+                    </Slider>
+                  )}
                 </div>
               </div>
               {/* PRODUCT DETAILS DIV */}
-              {product && (
+              {product && product.options[amount] && (
                 <div className="flex flex-col gap-3 w-full mob_display:w-11/12">
                   <div className="flex flex-col gap-2">
                     <div>
@@ -210,9 +227,7 @@ const ProductDetails = () => {
                     </div>
                   </div>
                   <div>
-                    <p className="text-xl mob_display:text-base">
-                      Description
-                    </p>
+                    <p className="text-xl mob_display:text-base">Description</p>
                     <p className="text-sm">{product.description}</p>
                   </div>
                   <form
@@ -321,6 +336,9 @@ const ProductDetails = () => {
                       id={item._id}
                       product={item}
                       category={item.categoryDetails.name}
+                      parentCategory={
+                        item.categoryDetails.parentCategoryDetails.name
+                      }
                     />
                   </div>
                 ))

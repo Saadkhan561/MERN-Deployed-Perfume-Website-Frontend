@@ -39,7 +39,7 @@ const Categories = () => {
             </div>
           </div>
         </div>
-        <div className="flex gap-4 w-full flex-wrap justify-around p-8">
+        <div className="grid grid-rows-auto pt-8 w-full">
           {isParentCategoriesLoading ? (
             <CategoryCardSkeleton />
           ) : (

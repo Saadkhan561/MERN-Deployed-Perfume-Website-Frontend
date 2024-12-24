@@ -310,7 +310,7 @@ const ProductForm = () => {
                   <option
                     key={category._id}
                     value={category.name}
-                    className=" p-1 text-xs rounded-none rounded-t-none"
+                    className=" p-1 text-sm rounded-none rounded-t-none"
                   >
                     {category.name}
                   </option>
@@ -448,7 +448,7 @@ const ProductForm = () => {
               Enter description
             </label>
             <textarea
-              className="h-20 w-full border border-slate-200 p-1 text-sm focus:outline-slate-300 rounded-lg"
+              className="h-32 w-full border border-slate-200 p-2 text-sm focus:outline-slate-300 rounded-lg"
               id="description"
               {...register("description")}
             ></textarea>

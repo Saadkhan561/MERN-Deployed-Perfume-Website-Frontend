@@ -18,6 +18,7 @@ import {
   fetchNonFilteredProducts,
   fetchProductById,
   fetchProductImages,
+  fetchProductsByParentCategory,
   fetchTrendingProducts,
   searchResults,
 } from "@/services/productService";
@@ -46,6 +47,14 @@ export const useFetchNonFilteredProducts = (params, options) => {
     ...options,
     queryFn: () => fetchNonFilteredProducts(params),
     queryKey: ["Non filtered products", params],
+  });
+};
+
+export const useFetchProductsByParentCategory = (params, options) => {
+  return useQuery({
+    ...options,
+    queryFn: () => fetchProductsByParentCategory(params),
+    queryKey: ["product_by_parent_category", params],
   });
 };
 
@@ -78,7 +87,7 @@ export const useFetchCategoriesByParentId = (params, options) => {
     ...options,
     queryKey: ["categories_by_parent_id", params],
     queryFn: () => fetchCategoriesByParentId(params),
-    enabled: Boolean(params)
+    enabled: Boolean(params),
   });
 };
 
@@ -101,7 +110,12 @@ export const useFetchProductById = (id, options) => {
 export const useFetchProductImages = (params, options) => {
   return useQuery({
     ...options,
-    queryKey: ["product_images", params.category, params.productName, params.parentCategory],
+    queryKey: [
+      "product_images",
+      params.category,
+      params.productName,
+      params.parentCategory,
+    ],
     queryFn: () => fetchProductImages(params),
   });
 };

@@ -107,7 +107,7 @@ const Layout = ({ children }) => {
               {parentCategories?.map((category) => (
                 <Link
                   key={category._id}
-                  href={`/products?id=${category._id}`}
+                  href={`/productsAll?id=${category._id}`}
                   className="hover:border-b border-slate-500 duration-100"
                 >
                   {category.name}

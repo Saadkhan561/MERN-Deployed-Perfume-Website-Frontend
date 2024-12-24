@@ -31,6 +31,17 @@ export const fetchNonFilteredProducts = async (params) => {
   }
 };
 
+export const fetchProductsByParentCategory = async (params) => {
+  try {
+    const products = await axiosInstance(
+      `/getProductsByParentCategory/${params.id}`
+    );
+    return products.data;
+  } catch (err) {
+    throw new Error(err.message);
+  }
+};
+
 export const addProduct = async (data) => {
   try {
     const res = await axiosInstance.post("/addProduct", data);

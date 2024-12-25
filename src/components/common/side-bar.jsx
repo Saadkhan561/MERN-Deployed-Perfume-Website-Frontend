@@ -115,7 +115,10 @@ const SideBar = () => {
                           <AccordionContent>
                             {category.subCategories?.map(
                               (sub_category, index) => (
-                                <AccordionItem className="hover:underline pt-2">
+                                <AccordionItem
+                                  key={index}
+                                  className="hover:underline pt-2"
+                                >
                                   <Link
                                     href={`/products?id=${sub_category._id}`}
                                     key={index}

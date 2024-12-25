@@ -15,7 +15,7 @@ const CategoryCard = ({ name, parentCategory, id }) => {
   return (
     <div
       onClick={() => router.push(`/products?id=${id}`)}
-      className="sm:w-[500px] xl:w-[600px] w-[400px] rounded-lg flex flex-col gap-4 items-center p-4 hover:scale-105 cursor-pointer duration-500 group"
+      className="sm:w-[500px] xl:w-[600px] w-full rounded-lg flex flex-col gap-4 items-center p-4 hover:scale-105 cursor-pointer duration-500 group"
     >
       {/* <Image
         className="aspect-square group-hover:opacity-90 duration-200"

@@ -19,8 +19,6 @@ const Products = () => {
     skip: skip,
   });
 
-  console.log(category);
-
   return (
     <Layout>
       <Meta
@@ -39,16 +37,25 @@ const Products = () => {
           <div className="absolute top-0 w-full h-full left-0">
             <div className="flex flex-col gap-2 h-full text-white items-center justify-center">
               <p className="text-5xl font-semibold">Products</p>
-              <div className="flex items-center gap-2">
-                <Link className="hover:underline" href="/">
-                  Home
-                </Link>
-                <p>&gt;</p>
-                <Link className="hover:underline" href="/categories">
-                  Categories
-                </Link>
-                <p>&gt;</p> <p className="capitalize">{category?.name}</p>
-              </div>
+              {category && (
+                <div className="flex items-center gap-2">
+                  <Link className="hover:underline" href="/">
+                    Home
+                  </Link>
+                  <p>&gt;</p>
+                  <Link className="hover:underline" href="/categories">
+                    Categories
+                  </Link>
+                  <p>&gt;</p>
+                  <Link
+                    className="hover:underline"
+                    href={`/productsAll?id=${category[0].parentCategoryId}`}
+                  >
+                    {category[0]?.parentCategoryName}
+                  </Link>
+                  <p>&gt;</p> <p className="capitalize">{category[0]?.name}</p>
+                </div>
+              )}
             </div>
           </div>
         </div>

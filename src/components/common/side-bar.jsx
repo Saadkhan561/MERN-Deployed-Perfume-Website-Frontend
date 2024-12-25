@@ -10,7 +10,10 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { useFetchAllCategories } from "@/hooks/query";
+import {
+  useFetchAllCategories,
+  useFetchAllParentCategories,
+} from "@/hooks/query";
 
 const SideBar = () => {
   const router = useRouter();
@@ -29,6 +32,8 @@ const SideBar = () => {
 
   const { data: categories, isLoading: isCategoriesLoading } =
     useFetchAllCategories();
+
+  const { data: parentCategories } = useFetchAllParentCategories();
 
   return (
     <div>
@@ -91,20 +96,38 @@ const SideBar = () => {
           >
             Home
           </li>
-          <Accordion
-            type="single"
-            collapsible
-            className="p-2 cursor-pointer hover:underline"
-          >
+          <Accordion type="single" collapsible className="p-2 cursor-pointer">
             <AccordionItem value="item-1">
-              <AccordionTrigger>Categories</AccordionTrigger>
+              <AccordionTrigger className="hover:underline">
+                Categories
+              </AccordionTrigger>
               <AccordionContent>
                 <ul>
-                  {categories?.map((category, index) => (
+                  {parentCategories?.map((category, index) => (
                     <li key={category._id} className="pt-2 capitalize">
-                      <Link href={`/products?id=${category._id}`} key={index}>
-                        {category.name}
-                      </Link>
+                      <Accordion type="single" collapsible>
+                        <AccordionItem value={category._id}>
+                          <AccordionTrigger className="hover:underline">
+                            <Link href={`/productsAll?id=${category._id}`}>
+                              {category.name}
+                            </Link>
+                          </AccordionTrigger>
+                          <AccordionContent>
+                            {category.subCategories?.map(
+                              (sub_category, index) => (
+                                <AccordionItem className="hover:underline pt-2">
+                                  <Link
+                                    href={`/products?id=${sub_category._id}`}
+                                    key={index}
+                                  >
+                                    {sub_category.name}
+                                  </Link>
+                                </AccordionItem>
+                              )
+                            )}
+                          </AccordionContent>
+                        </AccordionItem>
+                      </Accordion>
                     </li>
                   ))}
                 </ul>

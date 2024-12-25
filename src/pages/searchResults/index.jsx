@@ -3,8 +3,8 @@ import { useRouter } from "next/router";
 import Layout from "@/layout/layout";
 import Card from "@/components/cards/product-card";
 import React from "react";
-import Image from 'next/image'
-import Link from 'next'
+import Image from "next/image";
+import Link from "next";
 import { ClipLoader } from "react-spinners";
 
 const SearchResults = () => {
@@ -18,8 +18,6 @@ const SearchResults = () => {
     { query: queryParam },
     { enabled: Boolean(queryParam), retry: false }
   );
-
-  console.log(searchResults);
 
   return (
     <Layout>
@@ -65,6 +63,9 @@ const SearchResults = () => {
                     id={product._id}
                     product={product}
                     category={product.categoryDetails.name}
+                    parentCategory={
+                      product.categoryDetails.parentCategoryDetails.name
+                    }
                   />
                 ))
               )}

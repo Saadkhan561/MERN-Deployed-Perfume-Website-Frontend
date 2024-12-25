@@ -31,7 +31,7 @@ const Categories = () => {
             <div className="flex flex-col gap-2 h-full text-white items-center justify-center">
               <p className="text-5xl font-semibold">Categories</p>
               <div className="flex gap-2 items-center">
-                <Link className="hover:underliner" href="/">
+                <Link className="hover:underline" href="/">
                   Home
                 </Link>
                 <p>&gt;</p> Categories

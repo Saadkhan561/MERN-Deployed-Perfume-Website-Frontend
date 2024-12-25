@@ -6,16 +6,19 @@ import PaymentOption from "@/components/paymentOption";
 import SideBar from "@/components/common/side-bar";
 import Link from "next/link";
 import { Bounce, ToastContainer } from "react-toastify";
-import { useFetchAllCategories, useFetchAllParentCategories } from "@/hooks/query";
+import {
+  useFetchAllCategories,
+  useFetchAllParentCategories,
+} from "@/hooks/query";
 import { ShoppingCart } from "lucide-react";
 import useCartStore from "@/store/cart";
 import Whatsapp from "@/icons/whatsapp";
 
-import localFont from 'next/font/local'
+import localFont from "next/font/local";
 
-  const myFont = localFont({
-    src: "../../public/fonts/JosefinSans-Regular.ttf",
-  });
+const myFont = localFont({
+  src: "../../public/fonts/JosefinSans-Regular.ttf",
+});
 
 const Layout = ({ children }) => {
   // const [msgVisible, setMsgVisible] = useState(true);
@@ -47,7 +50,9 @@ const Layout = ({ children }) => {
   };
 
   return (
-    <div className={`w-full h-sreen relative overflow-x-hidden font-sans ${myFont.className}`}>
+    <div
+      className={`w-full h-sreen relative overflow-x-hidden font-sans ${myFont.className}`}
+    >
       <ToastContainer
         position="top-center"
         transition={Bounce}
@@ -86,12 +91,12 @@ const Layout = ({ children }) => {
             : "flex flex-col min-h-screen relative duration-20"
         }
       >
-        <div className="flex flex-col items-center  bg-white fixed top-0 left-0 z-30 w-full h-20">
-          <div className="border-b border-slate-400 w-full flex justify-center">
+        <div className="flex flex-col items-center bg-white fixed top-0 left-0 z-30 w-full h-20">
+          <div className=" w-full flex justify-center">
             <Navbar />
           </div>
-          <div className="flex justify-center bg-white w-full h-max p-4 ">
-            <ul className="flex items-center gap-4 uppercase sm:text-base text-sm text-[#BB8C1C]">
+          <div className="justify-center bg-white w-full h-max p-4 hidden full_screen:flex">
+            <ul className="flex items-center flex-wrap gap-4 uppercase sm:text-base text-[#BB8C1C]">
               <Link
                 className="hover:border-b border-slate-500 duration-100"
                 href="/"
@@ -116,7 +121,7 @@ const Layout = ({ children }) => {
             </ul>
           </div>
         </div>
-        <div className="flex justify-center mt-24">{children}</div>
+        <div className="flex justify-center full_screen:mt-24 mt-20">{children}</div>
         <Footer />
       </div>
 

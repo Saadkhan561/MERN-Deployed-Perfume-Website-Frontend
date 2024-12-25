@@ -39,8 +39,10 @@ const AllProducts = () => {
                 </Link>
                 <p>&gt;</p>
                 <Link className="hover:underline" href="/categories">
-                  Products
+                  Categories
                 </Link>
+                <p>&gt;</p>
+                <p>All products</p>
                 {/* <p>&gt;</p> <p className="capitalize">{category?.name}</p> */}
               </div>
             </div>

@@ -103,7 +103,7 @@ const SideBar = () => {
               </AccordionTrigger>
               <AccordionContent>
                 <ul>
-                  {parentCategories?.map((category, index) => (
+                  {parentCategories?.map((category) => (
                     <li key={category._id} className="pt-2 capitalize">
                       <Accordion type="single" collapsible>
                         <AccordionItem value={category._id}>

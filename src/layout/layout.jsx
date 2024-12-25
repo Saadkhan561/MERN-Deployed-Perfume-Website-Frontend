@@ -49,6 +49,8 @@ const Layout = ({ children }) => {
     router.push(url);
   };
 
+  // Hello
+
   return (
     <div
       className={`w-full h-sreen relative overflow-x-hidden font-sans ${myFont.className}`}

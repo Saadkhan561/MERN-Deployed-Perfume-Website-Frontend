@@ -6,6 +6,7 @@ import { useGetUserOrders } from "@/hooks/query";
 import Layout from "@/layout/layout";
 import useUserStore from "@/store/user";
 import { Pencil } from "lucide-react";
+import moment from "moment";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -27,7 +28,7 @@ const Account = () => {
 
   const clearQueryParam = () => {
     const updatedQuery = { ...router.query };
-    delete updatedQuery.orderId; 
+    delete updatedQuery.orderId;
 
     router.replace(
       {
@@ -62,48 +63,59 @@ const Account = () => {
               <div className="w-full">
                 <div className="text-xl">My Order History</div>
                 <div className="overflow-y-auto max-h-[430px] sm:p-4 p-2">
-                  {isOrdersLoading ? (
-                    Array.from({length: 5}).map((_,index) => (
-                      <AccountSkeleton key={index} />
-                    ))
-                  ) : (
-                    orders?.orders?.map((order) => (
-                      <div
-                        key={order._id}
-                        className="border shadow-sm mt-4 text-sm border-slate-200  sm:p-4 p-2 rounded-lg flex justify-between items-center"
-                      >
-                        <p>
-                          Order Id :{" "}
-                          <span className="font-normal">{order._id}</span>
-                        </p>
-                        <Dialog
-                          onOpenChange={(isOpen) => {
-                            if (!isOpen) {
-                              clearQueryParam();
-                            }
-                          }}
+                  {isOrdersLoading
+                    ? Array.from({ length: 5 }).map((_, index) => (
+                        <AccountSkeleton key={index} />
+                      ))
+                    : orders?.orders?.map((order) => (
+                        <div
+                          className="border shadow-sm mt-4 border-slate-200  sm:p-4 p-2 rounded-lg flex flex-col gap-1"
+                          key={order._id}
                         >
-                          <DialogTrigger>
-                            <button
-                              onClick={() =>
-                                router.push(
-                                  `?orderId=${order._id}`,
-                                  undefined,
-                                  {
-                                    shallow: true,
-                                  }
-                                )
-                              }
-                              className="text-center bg-black text-white font-normal px-2 rounded-lg p-1"
+                          <p className="font-semibold">Order Id: {order._id}</p>
+                          <div className="flex justify-between items-center">
+                            <div>
+                              <div className="flex gap-1">
+                                <p>Date : </p>
+                                <span className="font-normal">
+                                  {moment(order.createdAt).format("MMM Do YY")}
+                                </span>
+                              </div>
+                              <div className="flex gap-1 capitalize">
+                                <p>Status : </p>
+                                <span className="font-normal">
+                                  {order.orderStatus}
+                                </span>
+                              </div>
+                            </div>
+                            <Dialog
+                              onOpenChange={(isOpen) => {
+                                if (!isOpen) {
+                                  clearQueryParam();
+                                }
+                              }}
                             >
-                              View Details
-                            </button>
-                          </DialogTrigger>
-                          <OrderDetail clearQueryParam={clearQueryParam} />
-                        </Dialog>
-                      </div>
-                    ))
-                  )}
+                              <DialogTrigger>
+                                <button
+                                  onClick={() =>
+                                    router.push(
+                                      `?orderId=${order._id}`,
+                                      undefined,
+                                      {
+                                        shallow: true,
+                                      }
+                                    )
+                                  }
+                                  className="text-center bg-black text-white font-normal px-2 rounded-lg p-1"
+                                >
+                                  View Details
+                                </button>
+                              </DialogTrigger>
+                              <OrderDetail clearQueryParam={clearQueryParam} />
+                            </Dialog>
+                          </div>
+                        </div>
+                      ))}
                 </div>
                 <div className="w-full text-center">
                   {orders?.load && (

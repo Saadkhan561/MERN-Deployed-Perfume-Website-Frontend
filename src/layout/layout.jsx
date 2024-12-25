@@ -45,7 +45,7 @@ const Layout = ({ children }) => {
   const { cart } = useCartStore();
 
   const sendMsg = () => {
-    const url = "https://wa.me/923322966011?text=Hello";
+    const url = "https://wa.me/923312875066?text=Hello";
     router.push(url);
   };
 
@@ -123,7 +123,9 @@ const Layout = ({ children }) => {
             </ul>
           </div>
         </div>
-        <div className="flex justify-center full_screen:mt-24 mt-20">{children}</div>
+        <div className="flex justify-center full_screen:mt-24 mt-20">
+          {children}
+        </div>
         <Footer />
       </div>
 

@@ -1,32 +1,35 @@
 import { Headset, PackageCheck, ThumbsUp } from "lucide-react";
+import Image from "next/image";
 import React from "react";
 
 const ServiceCard = () => {
   const tags = {
     item1: {
-      icon: <ThumbsUp className="sm:h-16 sm:w-16 w-12 h-12" />,
-      heading:"Quality products",
-      text: "Our products are meticulously crafted to meet the highest standards of quality, providing you with reliable and exceptional performance.",
+      icon: "refund",
+      heading: "Easy returns",
+      text: "Enjoy hassle-free returns within a week, as long as the item remains sealed.",
     },
     item2: {
-      icon: <PackageCheck  size={70}/>,
-      heading: "Fast delivery",
-      text: "Experience lightning-fast delivery right to your doorstep, ensuring your order arrives promptly and efficiently.",
+      icon: "price",
+      heading: "Best price",
+      text: "Get the best prices in Pakistan, guaranteed to offer unbeatable value.",
     },
     item3: {
-      icon: <Headset size={70} />,
-      heading: "24/7 customer support",
-      text: "Our dedicated customer support team is available 24/7 to assist you with any questions or concerns, providing prompt and helpful solutions.",
+      icon: "shipping",
+      heading: "Get free shipping",
+      text: "With 4000 /Rs purchase",
     },
   };
   return (
-    <div className="flex flex-wrap mob_display_product:flex-col mob_display:justify-center gap-14 w">
-      {Object.entries(tags).map(([key, { icon,heading, text }]) => (
+    <div className="flex justify-evenly flex-wrap gap-4 mob_display_product:flex-col mob_display:justify-center">
+      {Object.entries(tags).map(([key, { icon, heading, text }]) => (
         <div
-          className="flex flex-col gap-4 items-center sm:w-[350px] w-full h-[250px] rounded-lg shadow-2xl bg-white p-2 text-sm"
+          className="flex flex-col items-center sm:w-[350px] w-4/5 rounded-lg shadow-2xl bg-white p-2 text-sm"
           key={key}
         >
-          <div className="w-full flex justify-center">{icon}</div>
+          <div className="w-full flex justify-center">
+            <Image src={`/images/${icon}.png`} height={60} width={60} />
+          </div>
           <p className="text-xl">{heading}</p>
           <p>{text}</p>
         </div>

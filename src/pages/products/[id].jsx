@@ -84,7 +84,7 @@ const ProductDetails = () => {
       setCounter(counter + 1);
     }
   };
-const decrementCounter = () => {
+  const decrementCounter = () => {
     if (counter === 1) {
       return counter;
     } else {
@@ -92,7 +92,6 @@ const decrementCounter = () => {
     }
   };
 
-  console.log(cart);
 
   const initialValues = {
     amount: null,

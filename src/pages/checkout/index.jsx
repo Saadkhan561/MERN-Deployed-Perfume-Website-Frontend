@@ -156,9 +156,7 @@ const Checkout = () => {
 
           <div className="grid sm:grid-cols-2 grid-rows-2 sm:gap-8 gap-20 sm:mt-6 mt-8">
             <div>
-              <div className="text-3xl text-center mb-6">
-                Delivery Details
-              </div>
+              <div className="text-3xl text-center mb-6">Delivery Details</div>
               <div
                 onSubmit={handleSubmit(onSubmit)}
                 className="grid grid-rows-2 gap-2"
@@ -243,7 +241,7 @@ const Checkout = () => {
                   </label>
                   <div className="cart_input_field">
                     <input
-                      className="w-full focus:outline-none"
+                      className="w-full focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                       type="number"
                       id="ph_no"
                       placeholder="Enter phone no."

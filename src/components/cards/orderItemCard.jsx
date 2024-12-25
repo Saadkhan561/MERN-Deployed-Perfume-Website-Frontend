@@ -6,6 +6,7 @@ const OrderItemCard = ({ product, productName, category }) => {
   const { data: productImages } = useFetchProductImages({
     category: category,
     productName: productName,
+    parentCategory: product.parent_category_name,
   });
 
   return (

@@ -9,6 +9,7 @@ const CartItem = ({ itemKey, itemValue }) => {
   const { data: productImage } = useFetchProductImages({
     category: itemValue?.categoryDetails.name,
     productName: itemValue?.name,
+    parentCategory: itemValue?.categoryDetails.parentCategoryDetails.name,
   });
 
   const { incrementQuantity, decrementQuantity, deleteItem } = useCartStore();

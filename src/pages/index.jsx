@@ -34,7 +34,6 @@ export default function Home() {
     AOS.init({});
   }, []);
 
-
   return (
     <Layout>
       <Meta
@@ -46,15 +45,15 @@ export default function Home() {
         {/* MAIN AD DIV */}
         <div className="flex justify-center h-max mob_display:pt-0">
           <Slider
-            className="w-full sm:h-[300px] md:h-[400px] h-[400px] z-20"
+            className="w-full sm:h-[300px] md:h-[400px] h-[300px] z-20"
             {...settings}
           >
             {/* {Array.from({length: 3}).map((img, index) => (
               <SliderImageCard key={index} imgName={index+1} />
             ))} */}
-            <div className="sm:h-[300px] md:h-[400px] h-[400px]">
+            <div className="sm:h-[300px] md:h-[400px] h-[300px]">
               <Image
-                className=" w-full h-full aspect-square"
+                className=" w-full h-full aspect-auto"
                 src="/images/ad_1.jpg"
                 alt=""
                 width={1600}
@@ -63,7 +62,7 @@ export default function Home() {
               />
             </div>
 
-            <div className="sm:h-[300px] md:h-[400px] h-[400px]">
+            <div className="sm:h-[300px] md:h-[400px] h-[300px]">
               <Image
                 className=" w-full h-full aspect-square"
                 src="/images/ad_2.jpg"
@@ -73,7 +72,7 @@ export default function Home() {
                 // style={{ width: "100%", height: "100%", objectFit: "contain" }}
               />
             </div>
-            <div className="sm:h-[300px] md:h-[400px] h-[400px]">
+            <div className="sm:h-[300px] md:h-[400px] h-[300px]">
               <Image
                 className=" w-full h-full aspect-square"
                 src="/images/ad_3.jpg"

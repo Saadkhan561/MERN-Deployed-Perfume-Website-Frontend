@@ -17,6 +17,7 @@ const Cart = () => {
 
   const router = useRouter();
 
+
   useEffect(() => {
     const amount = Object.values(cart).reduce((total, item) => {
       return total + item.totalPrice;

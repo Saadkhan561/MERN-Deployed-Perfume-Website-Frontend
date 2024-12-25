@@ -66,10 +66,12 @@ const ProductDetails = () => {
       return counter;
     } else if (
       (Object.keys(cart).length &&
+        cart[id] &&
         cart[id].options[amount] &&
         cart[id]?.options[amount].quantity ===
           product?.options[amount].quantityAvailable) ||
       (Object.keys(cart).length &&
+        cart[id] &&
         cart[id].options[amount] &&
         counter ===
           cart[id]?.options[amount].quantityAvailable -
@@ -82,13 +84,15 @@ const ProductDetails = () => {
       setCounter(counter + 1);
     }
   };
-  const decrementCounter = () => {
+const decrementCounter = () => {
     if (counter === 1) {
       return counter;
     } else {
       setCounter(counter - 1);
     }
   };
+
+  console.log(cart);
 
   const initialValues = {
     amount: null,

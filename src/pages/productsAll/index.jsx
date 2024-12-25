@@ -46,19 +46,22 @@ const AllProducts = () => {
             </div>
           </div>
         </div>
-        <div className="flex flex-col gap-4 items-center pt-4">
+        <div className="flex flex-col gap-4 items-center pt-4 w-full">
           {isLoading ? (
             <div>Loading...</div>
           ) : (
             data?.map((item, index) => (
               <div key={index} className="w-11/12 p-4">
-                <div className="flex items-center justify-between">
+                <div className="flex sm:items-center sm:flex-row sm:justify-between flex-col items-start">
                   <p className="text-3xl capitalize">{item.subcategory_name}</p>
-                  <button className=" text-gray-500 hover:underline">
+                  <Link
+                    href={`/products?id=${item.category_id}`}
+                    className=" text-gray-500 hover:underline"
+                  >
                     View more
-                  </button>
+                  </Link>
                 </div>
-                <div className="flex gap-4 pt-4 flex-wrap mob_display:justify-center mob_display_product:flex-col mob_display_product:items-center">
+                <div className="flex gap-4 sm:pt-4 flex-wrap mob_display_product:flex-col mob_display_product:items-center">
                   {item.products.map((product) => (
                     <Card
                       key={product._id}

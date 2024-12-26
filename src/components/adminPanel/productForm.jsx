@@ -17,6 +17,8 @@ import Image from "next/image";
 const ProductForm = () => {
   const [parentId, setParentId] = useState(null);
   const [newCategory, setNewCategory] = useState(false);
+  const [categoryId, setCategoryId] = useState(null);
+  const [categoryName, setCategoryName] = useState(null);
   const [options, setOptions] = useState({});
   const [newOption, setNewOption] = useState({
     amount: "",
@@ -98,10 +100,12 @@ const ProductForm = () => {
       return;
     }
 
+    console.log(data)
     const formData = new FormData();
     formData.append("name", data.name);
     formData.append("description", data.description);
     formData.append("parentCategory", data.parentCategory.split("|")[1]);
+    formData.append("categoryId", data.categoryId);
     formData.append("category", data.category);
     formData.append("brand", data.brand);
     formData.append("options", JSON.stringify(options));
@@ -299,9 +303,14 @@ const ProductForm = () => {
                 Enter category
               </label>
               <select
-                {...register("category")}
                 className="product_input capitalize cursor-pointer"
                 defaultValue="default"
+                onChange={(e) => {
+                  const [selectedId, selectedName] = e.target.value.split("|");
+                  console.log(selectedId, selectedName);
+                  setValue("categoryId", selectedId);
+                  setValue("category", selectedName);
+                }}
               >
                 <option value="default" disabled hidden>
                   Select sub category
@@ -309,7 +318,8 @@ const ProductForm = () => {
                 {categories?.map((category) => (
                   <option
                     key={category._id}
-                    value={category.name}
+                    // value={category.name}
+                    value={`${category._id}|${category.name}`}
                     className=" p-1 text-sm rounded-none rounded-t-none"
                   >
                     {category.name}

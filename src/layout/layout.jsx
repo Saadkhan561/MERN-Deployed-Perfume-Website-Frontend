@@ -45,7 +45,8 @@ const Layout = ({ children }) => {
   const { cart } = useCartStore();
 
   const sendMsg = () => {
-    const url = "https://wa.me/923312875066?text=Hello";
+    const url =
+      "https://wa.me/923312875066?text=Hi!%20I%20am%20interested%20in%20your%20products.";
     router.push(url);
   };
 

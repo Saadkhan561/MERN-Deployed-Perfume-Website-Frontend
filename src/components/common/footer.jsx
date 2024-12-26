@@ -13,12 +13,10 @@ const Footer = () => {
     AOS.init({});
   }, []);
 
-  //https://www.instagram.com/perfumes.pk.official?igsh=MXRsZ3hwMmhudW4zeg==
-
   return (
-    <div className="duration-200 flex justify-center mt-20 bg-black text-white border-t border-t-slate-200">
-      <div className="p-12 text-lg">
-        <div className="flex justify-evenly mob_display:flex-col  text-[#BB8C1C] font-semibold flex-wrap gap-4">
+    <div className="duration-200 flex sm:justify-center justify-start mt-20 bg-black text-white border-t border-t-slate-200">
+      <div className="p-12 text-lg w-full flex flex-col gap-6">
+        <div className="flex justify-evenly flex-col sm:flex-row text-[#BB8C1C] font-semibold flex-wrap gap-4">
           <Link
             href="/"
             className="cursor-pointer hover:underline duration-200"
@@ -30,14 +28,17 @@ const Footer = () => {
             <li className="cursor-pointer hover:underline duration-200">
               Services
             </li>
-            <li className="text-gray-500 text-sm font-normal">
-              Easy hassle free returns
+            <li className="text-gray-500 text-sm font-normal flex gap-1">
+              <span>-</span>
+              <p>Easy hassle free returns</p>
             </li>
-            <li className="text-gray-500 text-sm font-normal">
-              Best price all over pakistan
+            <li className="text-gray-500 text-sm font-normal flex gap-1">
+              <span>-</span>
+              <p>Best price all over pakistan</p>
             </li>
-            <li className="text-gray-500 text-sm font-normal">
-              Get free shipping for upto 4000 /Rs purchase
+            <li className="text-gray-500 text-sm font-norma flex gap-1">
+              <span>-</span>
+              <p>Get free shipping for upto 4000 /Rs purchase</p>
             </li>
           </ul>
           <ul className="w-[200px]">

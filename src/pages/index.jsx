@@ -149,7 +149,7 @@ export default function Home() {
             {/* SERVICES DIV */}
             <div className="flex flex-col items-center gap-10">
               <p className="text-4xl">Services provided by us!</p>
-              <div data-aos="fade-up" className="">
+              <div data-aos="fade-up">
                 <ServiceCard />
               </div>
             </div>

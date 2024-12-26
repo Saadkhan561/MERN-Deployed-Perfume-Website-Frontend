@@ -21,7 +21,7 @@ const ServiceCard = () => {
     },
   };
   return (
-    <div className="flex justify-evenly flex-wrap gap-4 mob_display_product:flex-col mob_display:justify-center">
+    <div className="flex sm:flex-row flex-col items-center sm:justify-evenly gap-6 flex-wrap">
       {Object.entries(tags).map(([key, { icon, heading, text }]) => (
         <div
           className="flex flex-col items-center sm:w-[350px] w-4/5 rounded-lg shadow-2xl bg-white p-2 text-sm"

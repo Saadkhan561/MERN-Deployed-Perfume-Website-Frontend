@@ -99,7 +99,7 @@ const SideBar = () => {
           <Accordion type="single" collapsible className="p-2 cursor-pointer">
             <AccordionItem value="item-1">
               <AccordionTrigger className="hover:underline">
-                Categories
+                <Link href={"/categories"}>Categories</Link>
               </AccordionTrigger>
               <AccordionContent>
                 <ul>

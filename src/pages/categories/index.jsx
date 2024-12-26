@@ -29,8 +29,8 @@ const Categories = () => {
           />
           <div className="absolute top-0 w-full h-full left-0">
             <div className="flex flex-col gap-2 h-full text-white items-center justify-center">
-              <p className="text-5xl font-semibold">Categories</p>
-              <div className="flex gap-2 items-center">
+              <p className="sm:text-5xl text-3xl font-semibold">Categories</p>
+              <div className="flex gap-2 items-center sm:text-base text-xs">
                 <Link className="hover:underline" href="/">
                   Home
                 </Link>

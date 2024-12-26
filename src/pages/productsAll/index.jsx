@@ -30,10 +30,10 @@ const AllProducts = () => {
           />
           <div className="absolute top-0 w-full h-full left-0">
             <div className="flex flex-col gap-2 h-full text-white items-center justify-center">
-              <p className="text-4xl font-semibold">
+              <p className="sm:text-5xl text-3xl font-semibold">
                 {data && data[0].parent_category_name}
               </p>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 sm:text-base text-xs">
                 <Link className="hover:underline" href="/">
                   Home
                 </Link>

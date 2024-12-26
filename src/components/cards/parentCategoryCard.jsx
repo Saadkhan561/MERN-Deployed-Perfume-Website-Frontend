@@ -1,11 +1,16 @@
 import React from "react";
 import CategoryCard from "./categoryCard";
+import Link from "next/link";
 
 const ParentCategoryCard = ({ data }) => {
-  console.log(data);
   return (
     <div className="w-full p-4 flex flex-col items-center gap-4">
-      <p className="text-center text-4xl mob_display:text-2xl">{data?.name}</p>
+      <Link
+        href={`/productsAll?id=${data?._id}`}
+        className="text-center uppercase text-4xl mob_display:text-2xl hover:underline"
+      >
+        {data?.name}
+      </Link>
       <div className="grid lg:grid-cols-2 lg:gap-8 gap-4 grid-cols-1">
         {data?.subCategories?.map((category, index) => (
           <CategoryCard

@@ -92,7 +92,6 @@ const ProductDetails = () => {
     }
   };
 
-
   const initialValues = {
     amount: null,
   };
@@ -161,15 +160,17 @@ const ProductDetails = () => {
             {/* DETAILS DIV */}
             <div className="flex items-center gap-4 mob_display:flex-col mob_display_product:gap-6">
               <div className="w-full">
-                <div className="flex justify-center  mob_display:pt-0 w-full">
+                <div className="flex justify-center mob_display:pt-0 w-full">
                   {productImages?.length === 1 ? (
-                    <Image
-                      className="aspect-square object-contain"
-                      src={`data:image/jpeg;base64,${productImages}`}
-                      alt={`Product Image 1`}
-                      height={400}
-                      width={400}
-                    />
+                    <div className="w-[400px] h-[400px] mob_display:h-[250px] mob_display:w-[250px]">
+                      <Image
+                        className="aspect-square object-contain"
+                        src={`data:image/jpeg;base64,${productImages}`}
+                        alt={`Product Image 1`}
+                        height={400}
+                        width={400}
+                      />
+                    </div>
                   ) : (
                     <Slider
                       className="w-[400px] h-[400px] mob_display:h-[250px] mob_display:w-[250px]"

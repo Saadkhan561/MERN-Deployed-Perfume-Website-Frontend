@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useFetchProductsByParentCategory } from "../../hooks/query";
 import { useRouter } from "next/router";
 import Card from "@/components/cards/product-card";
+import AllProductsSkeleton from "@/components/loadingSkeletons/productsAllSkeleton";
 
 const AllProducts = () => {
   const router = useRouter();
@@ -16,7 +17,9 @@ const AllProducts = () => {
   return (
     <Layout>
       <Meta
-        title="Perfume Collection - Perfume Shop"
+        title={`${
+          data && data[0].parent_category_name
+        } Collection - Perfume Shop`}
         description="Explore our exclusive collection of perfumes from top brands."
         keywords="perfume collection, luxury perfumes, top perfume brands"
       />
@@ -50,7 +53,7 @@ const AllProducts = () => {
         </div>
         <div className="flex flex-col gap-4 items-center pt-4 w-full">
           {isLoading ? (
-            <div>Loading...</div>
+            <AllProductsSkeleton />
           ) : (
             data?.map((item, index) => (
               <div key={index} className="w-11/12 p-4">

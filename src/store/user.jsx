@@ -3,13 +3,10 @@ import { persist } from "zustand/middleware";
 
 const useUserStore = create(
   persist(
-    (set) => ({
-      // user: {
-      //   currentUser: null
-      // },
-      // cart: {}
+    (set, get) => ({
       currentUser: null,
       isLoading: true,
+      _hasHydrated: false,
       addUserInfo: (newUserInfo) =>
         set(() => ({ currentUser: newUserInfo, isLoading: false })),
       deleteUserInfo: () =>
@@ -17,16 +14,22 @@ const useUserStore = create(
       addUserAddress: (addressObj) =>
         set((state) => ({
           currentUser: {
-            ...state.currentUser, 
+            ...state.currentUser,
             user: {
-              ...state.currentUser?.user, 
+              ...state.currentUser?.user,
               address: addressObj.address,
-              city: addressObj.city 
+              city: addressObj.city,
             },
           },
         })),
+      setHydrated: () => set({ _hasHydrated: true }),
     }),
-    { name: "current-user" }
+    {
+      name: "current-user",
+      onRehydrateStorage: () => (state) => {
+        state.setHydrated(); // Mark as hydrated
+      },
+    }
   )
 );
 

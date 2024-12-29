@@ -100,7 +100,7 @@ const ProductForm = () => {
       return;
     }
 
-    console.log(data)
+    console.log(data);
     const formData = new FormData();
     formData.append("name", data.name);
     formData.append("description", data.description);
@@ -218,6 +218,7 @@ const ProductForm = () => {
 
   return (
     <div className="bg-white p-4 font-sans">
+      <p className="text-2xl font-semibold">Add Product Form</p>
       <form
         className="pt-5 grid grid-cols-2 w-full gap-5"
         onSubmit={handleSubmit(onSubmit)}

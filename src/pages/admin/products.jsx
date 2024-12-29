@@ -145,10 +145,7 @@ const Products = () => {
                     Add Product
                   </button>
                 </DialogTrigger>
-                <DialogContent className="max-w-[1000px] h-[95%] overflow-y-auto">
-                  <DialogTitle className="text-2xl font-sans">
-                    Add product form
-                  </DialogTitle>
+                <DialogContent className="max-w-[1000px] h-max overflow-y-auto">
                   <ProductForm />
                 </DialogContent>
               </Dialog>

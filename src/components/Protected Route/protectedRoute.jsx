@@ -1,15 +1,21 @@
 import useUserStore from "@/store/user";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
+import WebsiteLoader from "../loadingSkeletons/websiteLoader";
 
 const ProtectedWrapper = (WrappedComponent) => {
   const Wrapper = (props) => {
-    const { currentUser, isLoading } = useUserStore();
+    const { currentUser, isLoading, isHydrated } = useUserStore((state) => ({
+      currentUser: state.currentUser,
+      isLoading: state.isLoading,
+      isHydrated: state._hasHydrated, // Zustand's internal hydration flag
+    }));
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const router = useRouter();
 
     useEffect(() => {
-      
+      if (!isHydrated) return; // Wait for hydration to complete
+
       if (!currentUser) {
         if (router.pathname === "/admin") {
           router.push("/adminLogin");
@@ -18,8 +24,8 @@ const ProtectedWrapper = (WrappedComponent) => {
         }
         return;
       }
-      
-      if (isLoading) ;
+
+      if (isLoading) return;
       const { role } = currentUser.user;
 
       if (router.pathname.startsWith("/admin") && role !== "admin") {
@@ -27,14 +33,22 @@ const ProtectedWrapper = (WrappedComponent) => {
       } else {
         setIsAuthenticated(true);
       }
-    }, [currentUser, isLoading, router]);
+    }, [currentUser, isLoading, isHydrated, router]);
 
-    if (isLoading) {
-      return <div>Loading...</div>;
+    if (!isHydrated || isLoading) {
+      return (
+        <div>
+          <WebsiteLoader />
+        </div>
+      );
     }
 
     if (!isAuthenticated) {
-      return <div>Redirecting...</div>;
+      return (
+        <div>
+          <WebsiteLoader />
+        </div>
+      );
     }
 
     return <WrappedComponent {...props} />;
